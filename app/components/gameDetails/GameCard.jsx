@@ -16,6 +16,7 @@ const GameCard = ({ game }) => {
       };
 
     return (
+      <main className={styles.fundoo}>
     <div className={styles.card}>
       <img className={styles.gameThumb} src={game.background_image} alt={game.name} />
       <div className={styles.cardInfo}>
@@ -35,6 +36,7 @@ const GameCard = ({ game }) => {
         </button>
     </div>
     </div>
+    </main>
     );
     }
 
