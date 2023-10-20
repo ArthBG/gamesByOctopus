@@ -45,7 +45,7 @@ function Home() {
     return (
       <main className={styles.main}>
         <div className={styles.container}>
-      <h1>Games</h1>
+      <h1 className={styles.tituloprincipal}>Games 🎮</h1>
       <div className={styles.divinput}>
       <input
         className={styles.searchInput}
@@ -56,27 +56,25 @@ function Home() {
       />
         <FiSearch />
       </div>
-      <h2>Filtre pela plataforma:</h2>
       <select
         className={styles.select}
         value={selectedPlatform}
         onChange={(ev) => setSelectedPlatform(ev.target.value)}
       >
-        <option value="all">Todas</option>
+        <option  className={styles.options} value="all">Ordenar por plataforma:</option>
         {games.map((game) =>
           game.platforms.map((platform) => (
             <option value={platform.platform.name}>{platform.platform.name}</option>
           ))
         )}
       </select>
-
-      <h2>Ordenar por gênero:</h2>
+      <h2 className={styles.tit2}></h2>
       <select
         className={styles.select}
         value={selectedGenre}
         onChange={(ev) => setSelectedGenre(ev.target.value)}
       >
-        <option value="all">Todas</option>
+        <option value="all">Ordenar por gênero:</option>
         {games.map((game) =>
           game.genres.map((genre) => (
             <option value={genre.name}>{genre.name}</option>
@@ -84,21 +82,24 @@ function Home() {
         )}
       </select>
 
-      <h2>Ordenar por classificação:</h2>
+    
+
+      <h2 className={styles.tit2}></h2>
       <select
         className={styles.select}
         value={selectedRating}
         onChange={(ev) => setSelectedRating(ev.target.value)}
       >
-        <option value="all">Todas</option>
+        <option value="all">Ordenar por classificação:</option>
         {games.map((game) => (
           <option value={game.rating}>{game.rating}</option>
         ))}
       </select>
-
+          <div className={styles.botaodiv}>
       <button className={styles.button} onClick={clearFilters}>
         Redefinir Filtros
       </button>
+      </div>
       <div className={styles.containerGames}>
         <GameList filterGames={filterGames} />
       </div>
