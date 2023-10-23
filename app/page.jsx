@@ -4,6 +4,8 @@ import styles from './page.module.css';
 import { fetchAsyncGames } from '@/data/gamedata';
 import GameList from './components/gameDetails/GameList';
 import { FiSearch } from 'react-icons/fi';
+import { BsTrashFill } from 'react-icons/bs';
+import { BiSolidEditAlt } from 'react-icons/bi';
 import Header from '@/app/components/header/header';
 import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
@@ -37,7 +39,7 @@ function Home() {
 
   const submitGame = () => {
     const newGame = new NewGame(title, platform, genre, date, image, description);
-    if(!newGameList.some((game) => game.title === newGame.title)){
+    if (!newGameList.some((game) => game.title === newGame.title)) {
       const updatedGame = [...newGameList, newGame];
       setNewGameList(updatedGame);
 
@@ -80,7 +82,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if(games && games.data){
+    if (games && games.data) {
       games.data.forEach((gamedata) => {
         const newGames = newGame(
           gamedata.name,
@@ -91,8 +93,8 @@ function Home() {
           gamedata.description
         );
         gamelist.addGame(newGames);
-       });
-      const updatedNewGames = [...newGameList, gamelist.getGames()];	  
+      });
+      const updatedNewGames = [...newGameList, gamelist.getGames()];
       setNewGameList(updatedNewGames);
 
     }
@@ -157,7 +159,10 @@ function Home() {
           value={selectedPlatform}
           onChange={(ev) => setSelectedPlatform(ev.target.value)}
         >
-          <option value="all">Filtre pela plataforma:</option>
+          <option value="all">Filtre pela plataforma:
+
+          </option>
+
           {
 
           }
@@ -208,6 +213,37 @@ function Home() {
         <h1>Descrição</h1>
         <input className={styles.descriptioninput} type="text" />
         <button className={styles.button} onClick={submitGame}>Adicionar Jogo</button>
+      </div>
+      {/*  aqui vai ficar uma div com o personagem cadastrado */}
+      <div>
+        <h3 className={styles.listajogo}>Lista de jogos:</h3>
+        <div className={styles.card}>
+        <div className={styles.contaierbuttons}>
+        <button className={styles.button}>
+          <BsTrashFill />
+        </button>
+        <button className={styles.button}>
+          <BiSolidEditAlt />
+        </button>
+      </div>
+        <p className={styles.textonovo1}>Nome do personagem:
+        </p>
+        <p className={styles.textonovo}> Plataforma:
+        </p>
+        <p className={styles.textonovo}>
+          Gênero:
+        </p>
+        <p className={styles.textonovo}>
+          Data de lançamento:
+        </p>
+        <p className={styles.textonovo}>
+          Imagem:
+        </p>
+        <p className={styles.textonovo}>
+          Descrição:
+        </p>
+        </div>
+       
       </div>
     </main >
   );
