@@ -26,7 +26,6 @@ const gameDescription = ({ params }) => {
             <div className={styles.imageContainer}>
                 <img className={styles.gameThumb} src={games.background_image} alt={games.name} height={540} width={1200} />
                 <h1 className={styles.h1}>{games.name}</h1>
-
                 <div className={styles.divrating}>
                     <p className={styles.rating}>{games.rating}</p>
                 </div>
@@ -40,14 +39,13 @@ const gameDescription = ({ params }) => {
                 </div>
             </div>
 
-            <h3 className={styles.h3}>Data de lançamento</h3>
-            <h6 className={styles.released}>{games.released}</h6>
-
-
-
             <div className={styles.descricao}>
                 <p className={styles.h2}>{games.name} Game</p>
                 <p className={styles.description}>{games.description_raw}</p>
+                <div className={styles.data}>
+                <h3 className={styles.h3}>Data de lançamento:</h3>
+            <h6 className={styles.released}>{games.released}</h6>
+            </div>
             </div>
 
             <h6 className={styles.h6g}>Gênero do jogo:</h6>
