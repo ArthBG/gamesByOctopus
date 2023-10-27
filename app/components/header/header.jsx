@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 
 
-function Header() {
+function Header2() {
 
 const meuLink = "https://linktr.ee/joao.senai"
 
@@ -60,4 +60,4 @@ const meuLink = "https://linktr.ee/joao.senai"
     );
 }
 
-export default Header;
+export default Header2;
