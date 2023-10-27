@@ -9,8 +9,6 @@ import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
 import ErrorMsg from './components/errormsg/ErrorMsg';
 
-
-
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
 function Home() {
@@ -98,6 +96,9 @@ function Home() {
   }
 
   const submitGame = () => {
+    console.log("Submit");
+    console.log(genre);
+    const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
     const newGame = new NewGame(name, platform, genre, date, image);
     if (validation() == false) {
@@ -145,12 +146,11 @@ function Home() {
       try {
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 100) {
+        while (allGameData.length < 150) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
         }
-        setAllGames(allGameData);
         const visibleGames = allGameData.slice(0, itemsPerPage);
         setAllGames(visibleGames);
         gamelist.demonMethod(allGameData);
@@ -166,7 +166,7 @@ function Home() {
   useEffect(() => {
     if (allGames && allGames.data) {
       allGames.data.map((game) => {
-        const newGame = new NewGame(game.name, game.platform, game.genres, game.released, game.background_image);
+        const newGame = new NewGame(game.name, game.platforms, game.genres, game.released, game.background_image);
         gamelist.addNewGame(newGame);
       });
       const newGamesUpdated = [...newGameList, ...gamelist.getGames()];
@@ -273,7 +273,7 @@ function Home() {
     const startIndex = (newPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const visibleGames = allGames.slice(startIndex, endIndex);
-    setAllGames(visibleGames);
+    setHolyGames(visibleGames);
   };
 
 
@@ -284,7 +284,7 @@ function Home() {
       const startIndex = (newPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const visibleGames = allGames.slice(startIndex, endIndex);
-      setAllGames(visibleGames);
+      setHolyGames(visibleGames);
     }
   };
   const changeDisplay = () => {
@@ -311,6 +311,9 @@ function Home() {
 
   const updateGame = () => {
     gamelist.updateNewGame(flag, name, platform, genre, date, image,);
+    const separado = genre.split(",");
+    const separadoPlataform = platform.split(",")
+    gamelist.updateNewGame(flag, name, separadoPlataform, separado, date, image);
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
     setEditbtn(false);
@@ -339,6 +342,28 @@ function Home() {
         platformsStr.substring(0, 50) + "...";
       }
       setPlatform(platformsStr);
+    if (game.genres) {
+      let test = ''
+      if (game.genres[0].name) {
+        test = game.genres.map((genre) => genre.name).join(", ")
+      } else {
+        test = game.genres.join(", ")
+      }
+      setGenre(test);
+    } else {
+      setGenre("");
+    }
+
+    if(game.platforms){
+      let test2 = ""
+      if(game.platforms[0].platform.name){
+        test2 = game.platforms.map((platform) => platform.platform.name).join(", ")
+      } else{
+        test2 = game.platforms.join(", ")
+      }
+      setPlatform(test2)
+    } else{
+      setPlatform("");  
     }
 
     if (game.released) {
@@ -348,6 +373,9 @@ function Home() {
       setDate(""); // Define como vazio caso não haja informações de data
     }
     setGenre(game.genres.map((genre) => genre.name).join(", "));
+      setDate("");
+    }
+    console.log(game.genres)
     setImage(game.background_image);
     changeDisplay();
     setEditbtn(true);
@@ -501,7 +529,6 @@ function Home() {
               value={genre}
               onChange={(ev) => setGenre(ev.target.value)}
             />
-
             <button className={styles.button} onClick={updateGame}>
               Atualizar Jogo
             </button>
