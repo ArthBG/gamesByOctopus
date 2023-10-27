@@ -7,9 +7,14 @@ import Header from './components/header/header';
 import GameList from './components/gameDetails/GameList';
 import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
+import ErrorMsg from './components/errormsg/ErrorMsg';
+
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
 function Home() {
+  const [msg, setMsg] = useState('');
+  const [url, setUrl] = useState(false);
+
   const [flag, setFlag] = useState(0);
   const [editbtn, setEditbtn] = useState(false);
   const [divGames, setDivGames] = useState(true);
@@ -29,26 +34,104 @@ function Home() {
   const [allGames, setAllGames] = useState(null);
   const [HolyGames, setHolyGames] = useState([]);
 
+  /*   function sendErrorMsg(msg1) {
+      setMsg(msg1);
+      setTimeout(function () {
+        setMsg('');
+        setType('');
+      }, 5000);
+    }
+    function sendType(type) {
+      if (type === "error") {
+        setType('error');
+      } else if (type === "success") {
+        setType('success');
+      }
+    }
+  
+   */
+  function validation() {
+    if (name.trim == '' || date.trim == '' || image.trim == '') {
+      console.log("n passou pelos inputs vazios");
+
+      return false;
+    }
+    else {
+      /*    else if (!image.includes('https') || !image.includes('.jpg') || !image.includes('.png') || !image.includes('.jpeg')) {
+            setUrl(true)
+            setTimeout(() => {
+              setUrl(false)
+            }, 3000);
+            return false;
+          } */
+
+      return true;
+    }
+  }
+
+  /* onst urlValida = (image) => {
+    if (image.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+
+      return true;
+    } else {
+
+
+      return false;
+    }
+  } */
+
+  /* const URLInvalida = () => {
+    if (image.endsWith(".jpg" || ".png" || ".gif" || ".jpeg")) {
+      return true;
+    } else {
+      return false
+    }
+  } */
+
+  const URLInvalida = (image) => {
+    if (image.endsWith(".jpg") || image.endsWith(".png") || image.endsWith(".gif") || image.endsWith(".jpeg")) {
+      return true;
+    }
+    return false;
+  }
+
   const submitGame = () => {
     console.log("Submit");
     console.log(genre);
     const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
-    if (!newGameList.some((game) => game.name === newGame.name)) {
-      const updatedGame = [...newGameList, newGame];
-      setNewGameList(updatedGame);
-      indica = true;
-    }
-    gamelist.addNewGame(newGame);
-    setNewGameList(gamelist.getGames());
+    const newGame = new NewGame(name, platform, genre, date, image);
+    if (validation() == false) {
+      console.log('n passou pelas verificações');
+      setMsg(true)
+      setTimeout(() => {
+        setMsg(false)
+      }, 3000);
+    } else if (URLInvalida(image) == false) {
+      setUrl(true)
+      setTimeout(() => {
+        setUrl(false)
+      }, 3000);
+    } else {
 
-    setname('');
-    setPlatform('');
-    setGenre('');
-    setDate('');
-    setImage('');
-    changeDisplay();
-    return indica;
+      if (!newGameList.some((game) => game.name === newGame.name)) {
+        const updatedGame = [...newGameList, newGame];
+        setNewGameList(updatedGame);
+        indica = true;
+      }
+      if (indica) {
+        /* sendErrorMsg('Jogo adicionado com sucesso'); */
+        /* sendType('success'); */
+        gamelist.addNewGame(newGame);
+        setHolyGames(gamelist.getGames());
+        setNewGameList(gamelist.getGames());
+        clearInfos();
+        changeDisplay();
+      } else {
+
+      }
+    }
+
   }
 
 
@@ -227,6 +310,7 @@ function Home() {
 
 
   const updateGame = () => {
+    gamelist.updateNewGame(flag, name, platform, genre, date, image,);
     const separado = genre.split(",");
     const separadoPlataform = platform.split(",")
     gamelist.updateNewGame(flag, name, separadoPlataform, separado, date, image);
@@ -250,6 +334,14 @@ function Home() {
   const editGame = (id) => {
     const game = gamelist.getNewGamePorId(id);
     setname(game.name);
+    if (game.platforms) {
+      const platformsStr = game.platforms
+        .map((platform) => platform.platform.name)
+        .join(", ");
+      if (platformsStr.length > 50) {
+        platformsStr.substring(0, 50) + "...";
+      }
+      setPlatform(platformsStr);
     if (game.genres) {
       let test = ''
       if (game.genres[0].name) {
@@ -278,6 +370,9 @@ function Home() {
       const formattedDate = formatDate(game.released);
       setDate(formattedDate);
     } else {
+      setDate(""); // Define como vazio caso não haja informações de data
+    }
+    setGenre(game.genres.map((genre) => genre.name).join(", "));
       setDate("");
     }
     console.log(game.genres)
@@ -364,6 +459,9 @@ function Home() {
           value={name}
           onChange={(ev) => setname(ev.target.value)}
         />
+        {
+          name == "" ? <ErrorMsg msg={"Preencha o nome do jogo"} /> : null
+        }
         {/* <h1>Plataforma</h1>
         <p>Selecione a plataforma:</p>
         {uniquePlatforms().map((platform) => (
@@ -391,12 +489,16 @@ function Home() {
           ))
         } */}
         <h1>Data de lançamento</h1>
+
         <input
           className={styles.dateinput}
           type="date"
           value={date}
           onChange={(ev) => setDate(ev.target.value)}
         />
+        {
+          date == "" ? <ErrorMsg msg={"Preencha o data de jogo"} /> : null
+        }
         <h1>Imagem do jogo</h1>
         <input
           className={styles.imageinput}
@@ -404,6 +506,15 @@ function Home() {
           value={image}
           onChange={(ev) => setImage(ev.target.value)}
         />
+        {
+
+          url ? <ErrorMsg msg={'url invalida'} /> : null
+        }
+                {
+          url == "" ? <ErrorMsg msg={"Preencha a url do jogo"} /> : null
+        }
+      
+
         {editbtn ? (
           <div className={styles.editcontainer}>
             <h1>Plataformas</h1>
@@ -432,5 +543,6 @@ function Home() {
     </main>
   );
 }
+
 
 export default Home;
