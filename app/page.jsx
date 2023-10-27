@@ -14,7 +14,6 @@ const gamelist = new NewGameList();
 function Home() {
   const [msg, setMsg] = useState('');
   const [url, setUrl] = useState(false);
-
   const [flag, setFlag] = useState(0);
   const [editbtn, setEditbtn] = useState(false);
   const [divGames, setDivGames] = useState(true);
@@ -34,59 +33,16 @@ function Home() {
   const [allGames, setAllGames] = useState(null);
   const [HolyGames, setHolyGames] = useState([]);
 
-  /*   function sendErrorMsg(msg1) {
-      setMsg(msg1);
-      setTimeout(function () {
-        setMsg('');
-        setType('');
-      }, 5000);
-    }
-    function sendType(type) {
-      if (type === "error") {
-        setType('error');
-      } else if (type === "success") {
-        setType('success');
-      }
-    }
-  
-   */
   function validation() {
     if (name.trim == '' || date.trim == '' || image.trim == '') {
       console.log("n passou pelos inputs vazios");
 
       return false;
     }
-    else {
-      /*    else if (!image.includes('https') || !image.includes('.jpg') || !image.includes('.png') || !image.includes('.jpeg')) {
-            setUrl(true)
-            setTimeout(() => {
-              setUrl(false)
-            }, 3000);
-            return false;
-          } */
-
+    else{
       return true;
     }
   }
-
-  /* onst urlValida = (image) => {
-    if (image.match(/\.(jpeg|jpg|gif|png)$/) != null) {
-
-      return true;
-    } else {
-
-
-      return false;
-    }
-  } */
-
-  /* const URLInvalida = () => {
-    if (image.endsWith(".jpg" || ".png" || ".gif" || ".jpeg")) {
-      return true;
-    } else {
-      return false
-    }
-  } */
 
   const URLInvalida = (image) => {
     if (image.endsWith(".jpg") || image.endsWith(".png") || image.endsWith(".gif") || image.endsWith(".jpeg")) {
@@ -99,7 +55,6 @@ function Home() {
     console.log("Submit");
     const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
-    const newGame = new NewGame(name, platform, genre, date, image);
     if (validation() == false) {
       console.log('n passou pelas verificações');
       setMsg(true)
@@ -119,8 +74,6 @@ function Home() {
         indica = true;
       }
       if (indica) {
-        /* sendErrorMsg('Jogo adicionado com sucesso'); */
-        /* sendType('success'); */
         gamelist.addNewGame(newGame);
         setHolyGames(gamelist.getGames());
         setNewGameList(gamelist.getGames());
@@ -390,13 +343,12 @@ function Home() {
           onChange={(ev) => setSelectedPlatform(ev.target.value)}
         >
           <option value="all">Filtre pela plataforma:</option>
-          {uniquePlatforms().map((platform) => (
+          {/* {uniquePlatforms().map((platform) => (
             <option key={platform} value={platform}>
               {platform}
             </option>
 
-          ))
-          }
+          )) */}
         </select>
         <select
           className={styles.select}
