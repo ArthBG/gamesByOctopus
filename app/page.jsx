@@ -39,7 +39,7 @@ function Home() {
 
       return false;
     }
-    else{
+    else {
       return true;
     }
   }
@@ -72,15 +72,12 @@ function Home() {
         const updatedGame = [...newGameList, newGame];
         setNewGameList(updatedGame);
         indica = true;
+        clearInfos();
+        changeDisplay();
       }
       if (indica) {
         gamelist.addNewGame(newGame);
         setHolyGames(gamelist.getGames());
-        setNewGameList(gamelist.getGames());
-        clearInfos();
-        changeDisplay();
-      } else {
-
       }
     }
 
@@ -282,37 +279,37 @@ function Home() {
         platformsStr.substring(0, 50) + "...";
       }
       setPlatform(platformsStr);
-    if (game.genres) {
-      let test = ''
-      if (game.genres[0].name) {
-        test = game.genres.map((genre) => genre.name).join(", ")
+      if (game.genres) {
+        let test = ''
+        if (game.genres[0].name) {
+          test = game.genres.map((genre) => genre.name).join(", ")
+        } else {
+          test = game.genres.join(", ")
+        }
+        setGenre(test);
       } else {
-        test = game.genres.join(", ")
+        setGenre("");
       }
-      setGenre(test);
-    } else {
-      setGenre("");
-    }
 
-    if(game.platforms){
-      let test2 = ""
-      if(game.platforms[0].platform.name){
-        test2 = game.platforms.map((platform) => platform.platform.name).join(", ")
-      } else{
-        test2 = game.platforms.join(", ")
+      if (game.platforms) {
+        let test2 = ""
+        if (game.platforms[0].platform.name) {
+          test2 = game.platforms.map((platform) => platform.platform.name).join(", ")
+        } else {
+          test2 = game.platforms.join(", ")
+        }
+        setPlatform(test2)
+      } else {
+        setPlatform("");
       }
-      setPlatform(test2)
-    } else{
-      setPlatform("");  
-    }
 
-    if (game.released) {
-      const formattedDate = formatDate(game.released);
-      setDate(formattedDate);
-    } else {
-      setDate(""); // Define como vazio caso não haja informações de data
-    }
-    setGenre(game.genres.map((genre) => genre.name).join(", "));
+      if (game.released) {
+        const formattedDate = formatDate(game.released);
+        setDate(formattedDate);
+      } else {
+        setDate(""); // Define como vazio caso não haja informações de data
+      }
+      setGenre(game.genres.map((genre) => genre.name).join(", "));
       setDate("");
     }
     console.log(game.genres)
@@ -343,12 +340,7 @@ function Home() {
           onChange={(ev) => setSelectedPlatform(ev.target.value)}
         >
           <option value="all">Filtre pela plataforma:</option>
-          {/* {uniquePlatforms().map((platform) => (
-            <option key={platform} value={platform}>
-              {platform}
-            </option>
 
-          )) */}
         </select>
         <select
           className={styles.select}
@@ -401,32 +393,7 @@ function Home() {
         {
           name == "" ? <ErrorMsg msg={"Preencha o nome do jogo"} /> : null
         }
-        {/* <h1>Plataforma</h1>
-        <p>Selecione a plataforma:</p>
-        {uniquePlatforms().map((platform) => (
-          <div key={platform} className={styles.checkbox}>
-            <input
-              type="checkbox"
-              value={platform}
-              onChange={handlePlatformChange}
-            />
-            <label>{platform}</label>
-          </div>
-        ))
-        }
-        <h1>Gênero</h1>
-        {
-          uniqueGenres().map((genre) => (
-            <div key={genre} className={styles.checkbox}>
-              <input
-                type="checkbox"
-                value={genre}
-                onChange={handleGenreChange}
-              />
-              <label>{genre}</label>
-            </div>
-          ))
-        } */}
+
         <h1>Data de lançamento</h1>
 
         <input
@@ -449,10 +416,10 @@ function Home() {
 
           url ? <ErrorMsg msg={'url invalida'} /> : null
         }
-                {
+        {
           url == "" ? <ErrorMsg msg={"Preencha a url do jogo"} /> : null
         }
-      
+
 
         {editbtn ? (
           <div className={styles.editcontainer}>
@@ -476,7 +443,10 @@ function Home() {
           <button className={styles.button} onClick={submitGame}>
             Adicionar Jogo
           </button>
+
+
         )}
+
 
       </div>
     </main>
