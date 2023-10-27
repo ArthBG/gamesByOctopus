@@ -50,7 +50,7 @@ const gameDescription = ({ params }) => {
                 <p className={styles.description}>{games.description_raw}</p>
             </div>
 
-            <h6 className={styles.h6}>Genero do jogo</h6>
+            <h6 className={styles.h6g}>Gênero do jogo:</h6>
             {games.genres ? (
                 games.genres.map((genre) => (
 
