@@ -12,7 +12,7 @@ import ErrorMsg from './components/errormsg/ErrorMsg';
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
 function Home() {
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState(false);
   const [url, setUrl] = useState(false);
   const [flag, setFlag] = useState(0);
   const [editbtn, setEditbtn] = useState(false);
@@ -34,34 +34,36 @@ function Home() {
   const [HolyGames, setHolyGames] = useState([]);
 
   function validation() {
-    if (name.trim == '' || date.trim == '' || image.trim == '') {
-      console.log("n passou pelos inputs vazios");
-
+    console.log(name, platform, genre, date, image)
+    if(name == '' || platform == '' || genre == '' || date == '' || image == ''){
       return false;
-    }
-    else {
+    }else{
       return true;
     }
   }
 
   const URLInvalida = (image) => {
+    console.log("entrou no image", image)
     if (image.endsWith(".jpg") || image.endsWith(".png") || image.endsWith(".gif") || image.endsWith(".jpeg")) {
+      console.log('passou');
       return true;
+    } else{
+      return false
     }
-    return false;
-  }
 
+  }
   const submitGame = () => {
     console.log("Submit");
     const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
-    if (validation() == false) {
-      console.log('n passou pelas verificações');
+    if (!validation()) {
+      console.log("Entrou no if dos inputs vazios")
       setMsg(true)
       setTimeout(() => {
         setMsg(false)
       }, 3000);
-    } else if (URLInvalida(image) == false) {
+    } else if (!URLInvalida(image)) {
+      console.log('entrou aqui no imagem URL', image)
       setUrl(true)
       setTimeout(() => {
         setUrl(false)
@@ -82,7 +84,6 @@ function Home() {
     }
 
   }
-
 
   const removeGames = (id) => {
     console.log(id);
@@ -391,8 +392,30 @@ function Home() {
           onChange={(ev) => setname(ev.target.value)}
         />
         {
-          name == "" ? <ErrorMsg msg={"Preencha o nome do jogo"} /> : null
+          msg ? (name == '' ? <ErrorMsg msg={"Preencha o nome do jogo"} /> : null) : null
         }
+
+        <h1>Plataforma</h1>
+        <input
+          className={styles.nameinput}
+          type="text"
+          value={platform}
+          onChange={(ev) => setPlatform(ev.target.value)}
+        />
+        {
+          msg ? (platform == '' ? <ErrorMsg msg={"Preencha a plataforma"} /> : null) : null
+        }
+        <h1>Gênero</h1>
+        <input
+          className={styles.nameinput}
+          type="text"
+          value={genre}
+          onChange={(ev) => setGenre(ev.target.value)}
+        />
+        {
+          msg ? (genre == '' ? <ErrorMsg msg={"Preencha a gênero"} /> : null) : null
+        }
+
 
         <h1>Data de lançamento</h1>
 
@@ -403,7 +426,7 @@ function Home() {
           onChange={(ev) => setDate(ev.target.value)}
         />
         {
-          date == "" ? <ErrorMsg msg={"Preencha o data de jogo"} /> : null
+          msg ? (date == '' ? <ErrorMsg msg={"Preencha a data "} /> : null) : null
         }
         <h1>Imagem do jogo</h1>
         <input
@@ -417,7 +440,7 @@ function Home() {
           url ? <ErrorMsg msg={'url invalida'} /> : null
         }
         {
-          url == "" ? <ErrorMsg msg={"Preencha a url do jogo"} /> : null
+          msg ? (image == '' ? <ErrorMsg msg={"Preencha com uma imagem"} /> : null) : null
         }
 
 
