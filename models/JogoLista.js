@@ -1,15 +1,27 @@
+import NewGame from "./Jogo";
 export default class NewGameList {
   constructor() {
     this.games = [];
   }
 
   demonMethod(lista) {
-    this.games = this.games.concat(lista);
-    console.log("Ele está observando");
-    console.log(this.games);
+    lista.map((game) => {
+      const id = game.id;
+      const name = game.name;
+      const platforms = game.parent_platforms.map((platform) => platform.platform.name);
+      console.log("PLataformas");
+      console.log(platforms);
+      const genres = game.genres.map((genre) => genre.name);
+      const released = game.released;
+      const rating = game.rating; 
+      const background_image = game.background_image;
+      const newGamev = new NewGame(id, name, platforms, genres, released, rating, background_image);
+      this.addNewGame(newGamev);
+  })
+
+    console.log(this.games);  
+
     this.angelMethod();
-    console.log("Ele ainda está observando");
-    console.log(this.games);
 
   }
 
@@ -42,22 +54,18 @@ export default class NewGameList {
     return this.games.find(game => game.id === id);
   }
 
-  updateNewGame(flag, name, platforms, genres, released, background_image) {
-    const NewGame = this.getNewGamePorId(flag);
-    console.log("Antes");
-    console.log(NewGame);
-    console.log(platforms);
-    if (NewGame) {
-      NewGame.name = name;
-      NewGame.platforms = platforms;
-      NewGame.genres = genres;
-      NewGame.released = released;
-      NewGame.background_image = background_image;
-    }
+  updateNewGame(flag, name, platformSplited, genreSplited, date, image) {
+      const game = this.getNewGamePorId(flag);
+      if(game) {
+        game.name = name;
+        game.platforms = platformSplited;
+        game.genres = genreSplited;
+        game.released = date;
+        game.background_image = image;
+      }
 
-    console.log("Depois");
-    console.log(NewGame);
-
+      return game;
+    
   }
 
 

@@ -6,19 +6,19 @@ import { BiSolidEditAlt } from 'react-icons/bi';
 import Link from 'next/link';
 
 function GameCard({ game, removeGame, editGame }) {
-  let test = ''
-  if (game.genres[0].name) {
-    test = game.genres.map((genre) => genre.name).join(", ")
-  } else {
-    test = game.genres.join(", ")
-  }
+  // let test = ''
+  // if (game.genres[0].name) {
+  //   test = game.genres.map((genre) => genre.name).join(", ")
+  // } else {
+  //   test = game.genres.join(", ")
+  // }
 
-  let platforms = ''
-  if(game.platforms[0].platform.name){
-    platforms = game.platforms.map((platform) => platform.platform.name).join(",")
-  } else{
-    platforms = game.platforms.join(",")
-  }
+  // let test2 = '';
+  // if (game.parent_platforms[0].platform.name) {
+  //   test2 = game.parent_platforms.map((platform) => platform.platform.name).join(", ")
+  // } else {
+  //   test2 = game.parent_platforms.join(", ")
+  // }
 
   return (
     <div className={styles.card}>
@@ -33,13 +33,13 @@ function GameCard({ game, removeGame, editGame }) {
         <p className={styles.genres}>
           {
             // Verify if exists genre.name
-            test
+            game.genres.join(", ")
           }
         </p>
         <p className={styles.platforms}>
           {
             // Verify if exists platform.name
-            platforms
+            game.platforms.join(", ")
           }
         </p>
       </div>
