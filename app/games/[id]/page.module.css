@@ -22,7 +22,7 @@
 .h1 {
     position: absolute;
     top: 70%;
-    left: 20.8%;
+    left: 18%;
     transform: translate(-50%, -50%);
     color: black;
     font-size: 30px;
@@ -86,7 +86,7 @@
 }
 
 .descricao {
-    margin-left: 28vh;
+    margin-left: 20vh;
     width: 50%;
 }
 
@@ -111,31 +111,23 @@
     margin-left: 76%;
 }
 
-.genrediv {
-    display: flex;
-}
 
-.genres {
+
+.genrediv {
     margin-left: 27vh;
     width: 7%;
     background-color: #007bff;
     color: #fff;
     border-radius: 5px;
     font-size: 14px;
-    margin-top: 2rem;
+    margin-top: 1%;
     padding: 5px 10px;
     font-weight: bold;
     text-align: center;
-    cursor: pointer;
-    transition-duration: 0.4s;
-    box-shadow: 0 8px 16px rgba(255, 242, 3, 0.993), 0 6px 20px 0 rgba(255, 243, 5, 0.993);
+
 }
 
-.genres:hover {
-    background-color: #e9ec32;
-    color: white;
-    box-shadow: 0 12px 16px 0 rgb(25, 86, 255), 0 17px 50px 0 rgb(25, 90, 240);
-}
+
 
 .h3 {
     color: #fff;
@@ -149,10 +141,57 @@
 .h6g {
     color: #fff;
     margin-left: 27vh;
-    margin-top: 1rem;
+
     font-size: 20px;
 }
 
-.data {
-    margin-left: -153rem;
+@media screen and (max-width: 650px) {
+    .container {
+        padding: 10px;
+    }
+
+    .genrediv {
+        width: 11%;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    .imageContainer {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .gameThumb {
+        width: 100%;
+        height: auto;
+    }
+
+    .h1 {
+        display: none;
+        position: static;
+        text-align: center;
+        width: 10%;
+        font-size: 16px;
+        margin-left: 12%;
+    }
+
+    .divrating {
+        display: none;
+    }
+
+    .platformsContainer {
+        bottom: 10px;
+        left: 0;
+        margin: 0;
+    }
+
+    .descricao {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .h6 {
+        margin-left: 0;
+    }
 }

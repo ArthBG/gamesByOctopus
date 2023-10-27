@@ -22,7 +22,7 @@ const gameDescription = ({ params }) => {
 
     return (
         <div className={styles.container}>
-            <Header />
+           {/*  <Header /> */}
             <div className={styles.imageContainer}>
                 <img className={styles.gameThumb} src={games.background_image} alt={games.name} height={540} width={1200} />
                 <h1 className={styles.h1}>{games.name}</h1>
