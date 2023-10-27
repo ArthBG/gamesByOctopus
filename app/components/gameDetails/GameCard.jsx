@@ -6,6 +6,12 @@ import { BiSolidEditAlt } from 'react-icons/bi';
 import Link from 'next/link';
 
 function GameCard({ game, removeGame, editGame }) {
+  let test = ''
+  if (game.genres[0].name) {
+    test = game.genres.map((genre) => genre.name).join(", ")
+  } else {
+    test = game.genres.join(", ")
+  }
   return (
     <div className={styles.card}>
       <div className={styles.imgcards}>
@@ -17,7 +23,10 @@ function GameCard({ game, removeGame, editGame }) {
         <p className={styles.rating}>{game.rating}</p>
         <p className={styles.released}>{game.released}</p>
         <p className={styles.genres}>
-          {Array.isArray(game.genres) ? game.genres.map((genre) => genre.name).join(", ") : (game.genres)}
+          {
+            // Verify if exists genre.name
+            test
+          }
         </p>
         <p className={styles.platforms}>
           {Array.isArray(game.parent_platforms) ? game.parent_platforms.map((platform) => platform.platform.name).join(", ") : (game.parent_platforms)}
@@ -28,7 +37,7 @@ function GameCard({ game, removeGame, editGame }) {
           <BsTrashFill onClick={() => removeGame(game.id)} />
         </button>
         <button className={styles.button} value={game.name}>
-          <BiSolidEditAlt onClick={() => editGame(game.id) } />
+          <BiSolidEditAlt onClick={() => editGame(game.id)} />
         </button>
       </div>
     </div>

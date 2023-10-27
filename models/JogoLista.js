@@ -44,6 +44,8 @@ export default class NewGameList {
 
   updateNewGame(flag, name, platform, genres, released, background_image) {
     const NewGame = this.getNewGamePorId(flag);
+    console.log("Antes");
+    console.log(NewGame);
     if (NewGame) {
       NewGame.name = name;
       NewGame.platform = platform;
@@ -51,6 +53,10 @@ export default class NewGameList {
       NewGame.released = released;
       NewGame.background_image = background_image;
     }
+
+    console.log("Depois");
+    console.log(NewGame);
+
   }
 
 

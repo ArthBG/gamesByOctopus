@@ -30,6 +30,8 @@ function Home() {
   const [HolyGames, setHolyGames] = useState([]);
 
   const submitGame = () => {
+    console.log("Submit");
+    console.log(genre);
     const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
     if (!newGameList.some((game) => game.name === newGame.name)) {
@@ -100,22 +102,22 @@ function Home() {
       const platformFilter = selectedPlatform.length == 0 || selectedPlatform.some((selectedPlatform) => platformNames.includes(selectedPlatform));
       const genreFilter = selectedGenre == 'all' || gameGenres.includes(selectedGenre);
       const ratingFilter = selectedRating == 'all' || game.rating == selectedRating;
-      
-      
+
+
       return platformFilter && genreFilter && ratingFilter;
     });
     setHolyGames(filters);
   };
-  
 
-   const uniquePlatforms = () => {
+
+  const uniquePlatforms = () => {
     const allPlatforms = gamelist.getGames().map((game) => {
       if (game.platforms && Array.isArray(game.platforms)) {
         return game.platforms.map((platform) => platform.platform.name);
       }
       return [];
     });
-    
+
     const flatPlatforms = allPlatforms.flat();
     const uniquePlatforms = [...new Set(flatPlatforms.sort())];
     return uniquePlatforms;
@@ -124,7 +126,7 @@ function Home() {
   useEffect(() => {
     filteredGames();
   }, [selectedPlatform, selectedGenre, selectedRating]);
-  
+
 
   const uniqueGenres = () => {
     const allGenres = gamelist.getGames().map((game) => {
@@ -144,33 +146,33 @@ function Home() {
     return uniqueRatings;
   };
 
-    const handleSearch = () => {
-      const filteredGames = gamelist.getGames().filter((game) => {
-        return game.name.toLowerCase().includes(lowerSearch);
-      });
-      setHolyGames(filteredGames);
-    };
-    const handlePlatformChange = (event) => {
-      const selectedPlatform = event.target.value;
-      setPlatform((prevPlatforms) => {
-        if (prevPlatforms.includes(selectedPlatform)) {
-          return prevPlatforms.filter((platform) => platform !== selectedPlatform);
-        } else {
-          return [...prevPlatforms, selectedPlatform];
-        }
-      });
-    };
+  const handleSearch = () => {
+    const filteredGames = gamelist.getGames().filter((game) => {
+      return game.name.toLowerCase().includes(lowerSearch);
+    });
+    setHolyGames(filteredGames);
+  };
+  const handlePlatformChange = (event) => {
+    const selectedPlatform = event.target.value;
+    setPlatform((prevPlatforms) => {
+      if (prevPlatforms.includes(selectedPlatform)) {
+        return prevPlatforms.filter((platform) => platform !== selectedPlatform);
+      } else {
+        return [...prevPlatforms, selectedPlatform];
+      }
+    });
+  };
 
-    const handleGenreChange = (event) => {
-      const selectedGenre = event.target.value;
-      setGenre((prevGenres) => {
-        if (prevGenres.includes(selectedGenre)) {
-          return prevGenres.filter((genre) => genre !== selectedGenre);
-        } else {
-          return [...prevGenres, selectedGenre];
-        }
-      });
-    };
+  const handleGenreChange = (event) => {
+    const selectedGenre = event.target.value;
+    setGenre((prevGenres) => {
+      if (prevGenres.includes(selectedGenre)) {
+        return prevGenres.filter((genre) => genre !== selectedGenre);
+      } else {
+        return [...prevGenres, selectedGenre];
+      }
+    });
+  };
 
   const getPlatforms = (platforms) => {
     const platformsStr = platforms
@@ -225,7 +227,8 @@ function Home() {
 
 
   const updateGame = () => {
-    gamelist.updateNewGame(flag, name, platform, genre, date, image, );
+    const separado = genre.split(",");
+    gamelist.updateNewGame(flag, name, platform, separado, date, image);
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
     setEditbtn(false);
@@ -234,44 +237,49 @@ function Home() {
   }
   const formatDate = (date) => {
     if (!date) return '';
-    
+
     const originalDate = new Date(date); // Converta a data original para um objeto Date
     const year = originalDate.getFullYear();
     const month = String(originalDate.getMonth() + 1).padStart(2, '0');
     const day = String(originalDate.getDate()).padStart(2, '0');
-    
+
     return `${year}-${month}-${day}`;
   }
 
   const editGame = (id) => {
     const game = gamelist.getNewGamePorId(id);
     setname(game.name);
-    if(game.parent_platforms){
-    const platformname = game.parent_platforms.map((platform) => platform.platform.name).join(", ");
-    setPlatform(platformname);
-  } else{
-    setPlatform(game.platforms);
-  }
+    if (game.parent_platforms) {
+      const platformname = game.parent_platforms.map((platform) => platform.platform.name).join(", ");
+      setPlatform(platformname);
+    } else {
+      setPlatform(game.platforms);
+    }
 
-  if(game.genres){
-    const genrename = game.genres.map((genre) => genre.name).join(", ");
-    setGenre(genrename);
-  } else{
-    setGenre("");
-  }
+    if (game.genres) {
+      let test = ''
+      if (game.genres[0].name) {
+        test = game.genres.map((genre) => genre.name).join(", ")
+      } else {
+        test = game.genres.join(", ")
+      }
+      setGenre(test);
+    } else {
+      setGenre("");
+    }
 
-  if (game.released) {
-    const formattedDate = formatDate(game.released);
-    setDate(formattedDate);
-  } else {
-    setDate(""); 
+    if (game.released) {
+      const formattedDate = formatDate(game.released);
+      setDate(formattedDate);
+    } else {
+      setDate("");
+    }
+    console.log(game.genres)
+    setImage(game.background_image);
+    changeDisplay();
+    setEditbtn(true);
+    setFlag(id);
   }
-  console.log(game.genres)
-  setImage(game.background_image);
-  changeDisplay();
-  setEditbtn(true);
-  setFlag(id);
-}
 
   return (
     <main className={styles.main}>
@@ -392,21 +400,21 @@ function Home() {
         />
         {editbtn ? (
           <div className={styles.editcontainer}>
-           <h1>Plataformas</h1> 
-          <input className={styles.platform}
-          type="text"
-          value={platform}
-          onChange={(ev) => setPlatform(ev.target.value)}
-        />
-        <h1>Gêneros</h1>
-        <input className={styles.genre}
-          type="text"
-          value={genre}
-          onChange={(ev) => setGenre(ev.target.value)}
-        />
-          <button className={styles.button} onClick={updateGame}>
-            Atualizar Jogo
-          </button>
+            <h1>Plataformas</h1>
+            <input className={styles.platform}
+              type="text"
+              value={platform}
+              onChange={(ev) => setPlatform(ev.target.value)}
+            />
+            <h1>Gêneros</h1>
+            <input className={styles.genre}
+              type="text"
+              value={genre}
+              onChange={(ev) => setGenre(ev.target.value)}
+            />
+            <button className={styles.button} onClick={updateGame}>
+              Atualizar Jogo
+            </button>
           </div>
         ) : (
           <button className={styles.button} onClick={submitGame}>
