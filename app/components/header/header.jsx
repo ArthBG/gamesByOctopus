@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 function Header({ changeDisplay }) {
 
-const meuLink = "https://linktr.ee/joao.senai"
+    const meuLink = "https://linktr.ee/joao.senai"
 
     return (
         <div>
@@ -45,13 +45,12 @@ const meuLink = "https://linktr.ee/joao.senai"
                                 </Link>
                             </li>
                             <li>
-                                <button onClick={changeDisplay}
-                                className={styles.a} >
-                                    <span className={styles.icon2}>
-                                        <GiRetroController className={styles.fa} />
+                                <Link className={styles.a} href={"#"}>
+                                    <span className={styles.icon}>
+                                        <GiRetroController onClick={changeDisplay} className={styles.fa} />
                                     </span>
-
-                                </button>
+                                    <span className={styles.title}>Crie seu jogo</span>
+                                    </Link>
                             </li>
                             <li>
                                 <Link className={styles.a} href={meuLink} target='_blank'>
