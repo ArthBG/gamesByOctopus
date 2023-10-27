@@ -1,0 +1,29 @@
+.headernovo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .icons {
+    margin: 0;
+  }
+  
+  .a {
+    text-decoration: none;
+  }
+  
+  .icon {
+    color: black;
+    font-size: 1.7rem; /* Ajuste o tamanho do ícone conforme necessário */
+  }
+
+  @media (max-width: 600px) {
+    .headernovo {
+        display: flex; /* Altera a direção do flex para coluna em telas menores */
+      align-items: center;
+    }
+  
+    .icons {
+      margin-bottom: 10px; /* Adiciona espaço entre os ícones em telas menores */
+    }
+  }
