@@ -7,8 +7,6 @@ import Header from './components/header/header';
 import GameList from './components/gameDetails/GameList';
 import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
-
-
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
 function Home() {
@@ -63,12 +61,11 @@ function Home() {
       try {
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 100) {
+        while (allGameData.length < 150) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
         }
-        setAllGames(allGameData);
         const visibleGames = allGameData.slice(0, itemsPerPage);
         setAllGames(visibleGames);
         gamelist.demonMethod(allGameData);
@@ -84,7 +81,7 @@ function Home() {
   useEffect(() => {
     if (allGames && allGames.data) {
       allGames.data.map((game) => {
-        const newGame = new NewGame(game.name, game.platform, game.genres, game.released, game.background_image);
+        const newGame = new NewGame(game.name, game.platforms, game.genres, game.released, game.background_image);
         gamelist.addNewGame(newGame);
       });
       const newGamesUpdated = [...newGameList, ...gamelist.getGames()];
@@ -191,7 +188,7 @@ function Home() {
     const startIndex = (newPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const visibleGames = allGames.slice(startIndex, endIndex);
-    setAllGames(visibleGames);
+    setHolyGames(visibleGames);
   };
 
 
@@ -202,7 +199,7 @@ function Home() {
       const startIndex = (newPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const visibleGames = allGames.slice(startIndex, endIndex);
-      setAllGames(visibleGames);
+      setHolyGames(visibleGames);
     }
   };
   const changeDisplay = () => {
@@ -249,23 +246,27 @@ function Home() {
   const editGame = (id) => {
     const game = gamelist.getNewGamePorId(id);
     setname(game.name);
-    if(game.platforms){
-    const platformsStr = game.platforms
-    .map((platform) => platform.platform.name)
-    .join(", ");
-  if (platformsStr.length > 50) {
-    platformsStr.substring(0, 50) + "...";
-    }
-    setPlatform(platformsStr);
+    if(game.parent_platforms){
+    const platformname = game.parent_platforms.map((platform) => platform.platform.name).join(", ");
+    setPlatform(platformname);
+  } else{
+    setPlatform(game.platforms);
+  }
+
+  if(game.genres){
+    const genrename = game.genres.map((genre) => genre.name).join(", ");
+    setGenre(genrename);
+  } else{
+    setGenre("");
   }
 
   if (game.released) {
     const formattedDate = formatDate(game.released);
     setDate(formattedDate);
   } else {
-    setDate(""); // Define como vazio caso não haja informações de data
+    setDate(""); 
   }
-  setGenre(game.genres.map((genre) => genre.name).join(", "));
+  console.log(game.genres)
   setImage(game.background_image);
   changeDisplay();
   setEditbtn(true);
