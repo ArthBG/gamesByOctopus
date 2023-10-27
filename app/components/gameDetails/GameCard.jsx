@@ -12,6 +12,14 @@ function GameCard({ game, removeGame, editGame }) {
   } else {
     test = game.genres.join(", ")
   }
+
+  let platforms = ''
+  if(game.platforms[0].platform.name){
+    platforms = game.platforms.map((platform) => platform.platform.name).join(",")
+  } else{
+    platforms = game.platforms.join(",")
+  }
+
   return (
     <div className={styles.card}>
       <div className={styles.imgcards}>
@@ -29,7 +37,10 @@ function GameCard({ game, removeGame, editGame }) {
           }
         </p>
         <p className={styles.platforms}>
-          {Array.isArray(game.parent_platforms) ? game.parent_platforms.map((platform) => platform.platform.name).join(", ") : (game.parent_platforms)}
+          {
+            // Verify if exists platform.name
+            platforms
+          }
         </p>
       </div>
       <div className={styles.contaierbuttons}>

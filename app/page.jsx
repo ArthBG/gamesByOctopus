@@ -228,7 +228,8 @@ function Home() {
 
   const updateGame = () => {
     const separado = genre.split(",");
-    gamelist.updateNewGame(flag, name, platform, separado, date, image);
+    const separadoPlataform = platform.split(",")
+    gamelist.updateNewGame(flag, name, separadoPlataform, separado, date, image);
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
     setEditbtn(false);
@@ -249,13 +250,6 @@ function Home() {
   const editGame = (id) => {
     const game = gamelist.getNewGamePorId(id);
     setname(game.name);
-    if (game.parent_platforms) {
-      const platformname = game.parent_platforms.map((platform) => platform.platform.name).join(", ");
-      setPlatform(platformname);
-    } else {
-      setPlatform(game.platforms);
-    }
-
     if (game.genres) {
       let test = ''
       if (game.genres[0].name) {
@@ -266,6 +260,18 @@ function Home() {
       setGenre(test);
     } else {
       setGenre("");
+    }
+
+    if(game.platforms){
+      let test2 = ""
+      if(game.platforms[0].platform.name){
+        test2 = game.platforms.map((platform) => platform.platform.name).join(", ")
+      } else{
+        test2 = game.platforms.join(", ")
+      }
+      setPlatform(test2)
+    } else{
+      setPlatform("");  
     }
 
     if (game.released) {
