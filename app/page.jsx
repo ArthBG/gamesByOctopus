@@ -12,7 +12,7 @@ import ErrorMsg from './components/errormsg/ErrorMsg';
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
 function Home() {
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState(false);
   const [url, setUrl] = useState(false);
   const [flag, setFlag] = useState(0);
   const [editbtn, setEditbtn] = useState(false);
@@ -34,34 +34,35 @@ function Home() {
   const [HolyGames, setHolyGames] = useState([]);
 
   function validation() {
-    if (name.trim == '' || date.trim == '' || image.trim == '') {
-      //console.log("n passou pelos inputs vazios");
-
+    console.log(name, platform, genre, date, image)
+    if(name == '' || platform == '' || genre == '' || date == '' || image == ''){
       return false;
-    }
-    else {
-      return true;
+    }else{
+            return true;
     }
   }
 
   const URLInvalida = (image) => {
+    console.log("entrou no image", image)
     if (image.endsWith(".jpg") || image.endsWith(".png") || image.endsWith(".gif") || image.endsWith(".jpeg")) {
+      console.log('passou');
       return true;
+    } else{
+      return false
     }
-    return false;
-  }
 
+  }
   const submitGame = () => {
     //console.log("Submit");
     const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
     if (validation() == false) {
-      //console.log('n passou pelas verificações');
       setMsg(true)
       setTimeout(() => {
         setMsg(false)
       }, 3000);
-    } else if (URLInvalida(image) == false) {
+    } else if (!URLInvalida(image)) {
+      console.log('entrou aqui no imagem URL', image)
       setUrl(true)
       setTimeout(() => {
         setUrl(false)
@@ -72,20 +73,16 @@ function Home() {
         const updatedGame = [...newGameList, newGame];
         setNewGameList(updatedGame);
         indica = true;
+        clearInfos();
+        changeDisplay();
       }
       if (indica) {
         gamelist.addNewGame(newGame);
         setHolyGames(gamelist.getGames());
-        setNewGameList(gamelist.getGames());
-        clearInfos();
-        changeDisplay();
-      } else {
-
       }
     }
 
   }
-
 
   const removeGames = (id) => {
     // console.log(id);
@@ -263,7 +260,8 @@ function Home() {
   const editGame = (id) => {
     const game = gamelist.getNewGamePorId(id);
     setname(game.name);
-    setDate(game.released);
+      setDate("");
+    console.log(game.genres)
     setImage(game.background_image);
     setPlatform(game.platforms);
     setGenre(game.genres);
@@ -294,12 +292,7 @@ function Home() {
           onChange={(ev) => setSelectedPlatform(ev.target.value)}
         >
           <option value="all">Filtre pela plataforma:</option>
-          {/* {uniquePlatforms().map((platform) => (
-            <option key={platform} value={platform}>
-              {platform}
-            </option>
 
-          )) */}
         </select>
         <select
           className={styles.select}
@@ -350,34 +343,31 @@ function Home() {
           onChange={(ev) => setname(ev.target.value)}
         />
         {
-          name == "" ? <ErrorMsg msg={"Preencha o nome do jogo"} /> : null
+          msg ? (name == '' ? <ErrorMsg msg={"Preencha o nome do jogo"} /> : null) : null
         }
-        {/* <h1>Plataforma</h1>
-        <p>Selecione a plataforma:</p>
-        {uniquePlatforms().map((platform) => (
-          <div key={platform} className={styles.checkbox}>
-            <input
-              type="checkbox"
-              value={platform}
-              onChange={handlePlatformChange}
-            />
-            <label>{platform}</label>
-          </div>
-        ))
+
+        <h1>Plataforma</h1>
+        <input
+          className={styles.nameinput}
+          type="text"
+          value={platform}
+          onChange={(ev) => setPlatform(ev.target.value)}
+        />
+        {
+          msg ? (platform == '' ? <ErrorMsg msg={"Preencha a plataforma"} /> : null) : null
         }
         <h1>Gênero</h1>
+        <input
+          className={styles.nameinput}
+          type="text"
+          value={genre}
+          onChange={(ev) => setGenre(ev.target.value)}
+        />
         {
-          uniqueGenres().map((genre) => (
-            <div key={genre} className={styles.checkbox}>
-              <input
-                type="checkbox"
-                value={genre}
-                onChange={handleGenreChange}
-              />
-              <label>{genre}</label>
-            </div>
-          ))
-        } */}
+          msg ? (genre == '' ? <ErrorMsg msg={"Preencha a gênero"} /> : null) : null
+        }
+
+
         <h1>Data de lançamento</h1>
 
         <input
@@ -387,7 +377,7 @@ function Home() {
           onChange={(ev) => setDate(ev.target.value)}
         />
         {
-          date == "" ? <ErrorMsg msg={"Preencha o data de jogo"} /> : null
+          msg ? (date == '' ? <ErrorMsg msg={"Preencha a data "} /> : null) : null
         }
         <h1>Imagem do jogo</h1>
         <input
@@ -402,7 +392,6 @@ function Home() {
         {
           image == "" ? <ErrorMsg msg={"Preencha a url do jogo"} /> : null
         }
-
 
         {editbtn ? (
           <div className={styles.editcontainer}>
@@ -426,12 +415,15 @@ function Home() {
           <button className={styles.button} onClick={submitGame}>
             Adicionar Jogo
           </button>
+
+
         )}
+
 
       </div>
     </main>
   );
-}
+}	
 
 
 export default Home;
