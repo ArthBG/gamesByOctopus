@@ -7,11 +7,14 @@ import Header from './components/header/header';
 import GameList from './components/gameDetails/GameList';
 import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
-
+import ErrorMsg from './components/errormsg/ErrorMsg';
 
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
 function Home() {
+  const [msg, setMsg] = useState('');
+  const [url, setUrl] = useState(false);
+
   const [flag, setFlag] = useState(0);
   const [editbtn, setEditbtn] = useState(false);
   const [divGames, setDivGames] = useState(true);
@@ -31,24 +34,103 @@ function Home() {
   const [allGames, setAllGames] = useState(null);
   const [HolyGames, setHolyGames] = useState([]);
 
+  /*   function sendErrorMsg(msg1) {
+      setMsg(msg1);
+      setTimeout(function () {
+        setMsg('');
+        setType('');
+      }, 5000);
+    }
+    function sendType(type) {
+      if (type === "error") {
+        setType('error');
+      } else if (type === "success") {
+        setType('success');
+      }
+    }
+  
+   */
+  function validation() {
+    if (name.trim == '' || date.trim == '' || image.trim == '') {
+      console.log("n passou pelos inputs vazios");
+
+      return false;
+    }
+    else {
+      /*    else if (!image.includes('https') || !image.includes('.jpg') || !image.includes('.png') || !image.includes('.jpeg')) {
+            setUrl(true)
+            setTimeout(() => {
+              setUrl(false)
+            }, 3000);
+            return false;
+          } */
+
+      return true;
+    }
+  }
+
+  /* onst urlValida = (image) => {
+    if (image.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+
+      return true;
+    } else {
+
+
+      return false;
+    }
+  } */
+
+  /* const URLInvalida = () => {
+    if (image.endsWith(".jpg" || ".png" || ".gif" || ".jpeg")) {
+      return true;
+    } else {
+      return false
+    }
+  } */
+
+  const URLInvalida = (image) => {
+    if (image.endsWith(".jpg") || image.endsWith(".png") || image.endsWith(".gif") || image.endsWith(".jpeg")) {
+      return true;
+    }
+    return false;
+  }
+
   const submitGame = () => {
+    console.log("Submit");
     const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
-    if (!newGameList.some((game) => game.name === newGame.name)) {
-      const updatedGame = [...newGameList, newGame];
-      setNewGameList(updatedGame);
-      indica = true;
-    }
-    gamelist.addNewGame(newGame);
-    setNewGameList(gamelist.getGames());
+    const newGame = new NewGame(name, platform, genre, date, image);
+    if (validation() == false) {
+      console.log('n passou pelas verificações');
+      setMsg(true)
+      setTimeout(() => {
+        setMsg(false)
+      }, 3000);
+    } else if (URLInvalida(image) == false) {
+      setUrl(true)
+      setTimeout(() => {
+        setUrl(false)
+      }, 3000);
+    } else {
 
-    setname('');
-    setPlatform('');
-    setGenre('');
-    setDate('');
-    setImage('');
-    changeDisplay();
-    return indica;
+      if (!newGameList.some((game) => game.name === newGame.name)) {
+        const updatedGame = [...newGameList, newGame];
+        setNewGameList(updatedGame);
+        indica = true;
+      }
+      if (indica) {
+        /* sendErrorMsg('Jogo adicionado com sucesso'); */
+        /* sendType('success'); */
+        gamelist.addNewGame(newGame);
+        setHolyGames(gamelist.getGames());
+        setNewGameList(gamelist.getGames());
+        clearInfos();
+        changeDisplay();
+      } else {
+
+      }
+    }
+
   }
 
 
@@ -63,12 +145,11 @@ function Home() {
       try {
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 100) {
+        while (allGameData.length < 150) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
         }
-        setAllGames(allGameData);
         const visibleGames = allGameData.slice(0, itemsPerPage);
         setAllGames(visibleGames);
         gamelist.demonMethod(allGameData);
@@ -84,7 +165,7 @@ function Home() {
   useEffect(() => {
     if (allGames && allGames.data) {
       allGames.data.map((game) => {
-        const newGame = new NewGame(game.name, game.platform, game.genres, game.released, game.background_image);
+        const newGame = new NewGame(game.name, game.platforms, game.genres, game.released, game.background_image);
         gamelist.addNewGame(newGame);
       });
       const newGamesUpdated = [...newGameList, ...gamelist.getGames()];
@@ -103,31 +184,19 @@ function Home() {
       const platformFilter = selectedPlatform.length == 0 || selectedPlatform.some((selectedPlatform) => platformNames.includes(selectedPlatform));
       const genreFilter = selectedGenre == 'all' || gameGenres.includes(selectedGenre);
       const ratingFilter = selectedRating == 'all' || game.rating == selectedRating;
-      
-      
+
+
       return platformFilter && genreFilter && ratingFilter;
     });
     setHolyGames(filters);
   };
-  
 
-   const uniquePlatforms = () => {
-    const allPlatforms = gamelist.getGames().map((game) => {
-      if (game.platforms && Array.isArray(game.platforms)) {
-        return game.platforms.map((platform) => platform.platform.name);
-      }
-      return [];
-    });
-    
-    const flatPlatforms = allPlatforms.flat();
-    const uniquePlatforms = [...new Set(flatPlatforms.sort())];
-    return uniquePlatforms;
-  };
+
 
   useEffect(() => {
     filteredGames();
   }, [selectedPlatform, selectedGenre, selectedRating]);
-  
+
 
   const uniqueGenres = () => {
     const allGenres = gamelist.getGames().map((game) => {
@@ -147,33 +216,33 @@ function Home() {
     return uniqueRatings;
   };
 
-    const handleSearch = () => {
-      const filteredGames = gamelist.getGames().filter((game) => {
-        return game.name.toLowerCase().includes(lowerSearch);
-      });
-      setHolyGames(filteredGames);
-    };
-    const handlePlatformChange = (event) => {
-      const selectedPlatform = event.target.value;
-      setPlatform((prevPlatforms) => {
-        if (prevPlatforms.includes(selectedPlatform)) {
-          return prevPlatforms.filter((platform) => platform !== selectedPlatform);
-        } else {
-          return [...prevPlatforms, selectedPlatform];
-        }
-      });
-    };
+  const handleSearch = () => {
+    const filteredGames = gamelist.getGames().filter((game) => {
+      return game.name.toLowerCase().includes(lowerSearch);
+    });
+    setHolyGames(filteredGames);
+  };
+  const handlePlatformChange = (event) => {
+    const selectedPlatform = event.target.value;
+    setPlatform((prevPlatforms) => {
+      if (prevPlatforms.includes(selectedPlatform)) {
+        return prevPlatforms.filter((platform) => platform !== selectedPlatform);
+      } else {
+        return [...prevPlatforms, selectedPlatform];
+      }
+    });
+  };
 
-    const handleGenreChange = (event) => {
-      const selectedGenre = event.target.value;
-      setGenre((prevGenres) => {
-        if (prevGenres.includes(selectedGenre)) {
-          return prevGenres.filter((genre) => genre !== selectedGenre);
-        } else {
-          return [...prevGenres, selectedGenre];
-        }
-      });
-    };
+  const handleGenreChange = (event) => {
+    const selectedGenre = event.target.value;
+    setGenre((prevGenres) => {
+      if (prevGenres.includes(selectedGenre)) {
+        return prevGenres.filter((genre) => genre !== selectedGenre);
+      } else {
+        return [...prevGenres, selectedGenre];
+      }
+    });
+  };
 
   const getPlatforms = (platforms) => {
     const platformsStr = platforms
@@ -191,7 +260,7 @@ function Home() {
     const startIndex = (newPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const visibleGames = allGames.slice(startIndex, endIndex);
-    setAllGames(visibleGames);
+    setHolyGames(visibleGames);
   };
 
 
@@ -202,7 +271,7 @@ function Home() {
       const startIndex = (newPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const visibleGames = allGames.slice(startIndex, endIndex);
-      setAllGames(visibleGames);
+      setHolyGames(visibleGames);
     }
   };
   const changeDisplay = () => {
@@ -228,7 +297,10 @@ function Home() {
 
 
   const updateGame = () => {
-    gamelist.updateNewGame(flag, name, platform, genre, date, image, );
+    gamelist.updateNewGame(flag, name, platform, genre, date, image,);
+    const separado = genre.split(",");
+    const separadoPlataform = platform.split(",")
+    gamelist.updateNewGame(flag, name, separadoPlataform, separado, date, image);
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
     setEditbtn(false);
@@ -237,40 +309,65 @@ function Home() {
   }
   const formatDate = (date) => {
     if (!date) return '';
-    
+
     const originalDate = new Date(date); // Converta a data original para um objeto Date
     const year = originalDate.getFullYear();
     const month = String(originalDate.getMonth() + 1).padStart(2, '0');
     const day = String(originalDate.getDate()).padStart(2, '0');
-    
+
     return `${year}-${month}-${day}`;
   }
 
   const editGame = (id) => {
     const game = gamelist.getNewGamePorId(id);
     setname(game.name);
-    if(game.platforms){
-    const platformsStr = game.platforms
-    .map((platform) => platform.platform.name)
-    .join(", ");
-  if (platformsStr.length > 50) {
-    platformsStr.substring(0, 50) + "...";
+    if (game.platforms) {
+      const platformsStr = game.platforms
+        .map((platform) => platform.platform.name)
+        .join(", ");
+      if (platformsStr.length > 50) {
+        platformsStr.substring(0, 50) + "...";
+      }
+      setPlatform(platformsStr);
+    if (game.genres) {
+      let test = ''
+      if (game.genres[0].name) {
+        test = game.genres.map((genre) => genre.name).join(", ")
+      } else {
+        test = game.genres.join(", ")
+      }
+      setGenre(test);
+    } else {
+      setGenre("");
     }
-    setPlatform(platformsStr);
-  }
 
-  if (game.released) {
-    const formattedDate = formatDate(game.released);
-    setDate(formattedDate);
-  } else {
-    setDate(""); // Define como vazio caso não haja informações de data
+    if(game.platforms){
+      let test2 = ""
+      if(game.platforms[0].platform.name){
+        test2 = game.platforms.map((platform) => platform.platform.name).join(", ")
+      } else{
+        test2 = game.platforms.join(", ")
+      }
+      setPlatform(test2)
+    } else{
+      setPlatform("");  
+    }
+
+    if (game.released) {
+      const formattedDate = formatDate(game.released);
+      setDate(formattedDate);
+    } else {
+      setDate(""); // Define como vazio caso não haja informações de data
+    }
+    setGenre(game.genres.map((genre) => genre.name).join(", "));
+      setDate("");
+    }
+    console.log(game.genres)
+    setImage(game.background_image);
+    changeDisplay();
+    setEditbtn(true);
+    setFlag(id);
   }
-  setGenre(game.genres.map((genre) => genre.name).join(", "));
-  setImage(game.background_image);
-  changeDisplay();
-  setEditbtn(true);
-  setFlag(id);
-}
 
   return (
     <main className={styles.main}>
@@ -349,6 +446,9 @@ function Home() {
           value={name}
           onChange={(ev) => setname(ev.target.value)}
         />
+        {
+          name == "" ? <ErrorMsg msg={"Preencha o nome do jogo"} /> : null
+        }
         {/* <h1>Plataforma</h1>
         <p>Selecione a plataforma:</p>
         {uniquePlatforms().map((platform) => (
@@ -376,12 +476,16 @@ function Home() {
           ))
         } */}
         <h1>Data de lançamento</h1>
+
         <input
           className={styles.dateinput}
           type="date"
           value={date}
           onChange={(ev) => setDate(ev.target.value)}
         />
+        {
+          date == "" ? <ErrorMsg msg={"Preencha o data de jogo"} /> : null
+        }
         <h1>Imagem do jogo</h1>
         <input
           className={styles.imageinput}
@@ -389,23 +493,32 @@ function Home() {
           value={image}
           onChange={(ev) => setImage(ev.target.value)}
         />
+        {
+
+          url ? <ErrorMsg msg={'url invalida'} /> : null
+        }
+                {
+          url == "" ? <ErrorMsg msg={"Preencha a url do jogo"} /> : null
+        }
+      
+
         {editbtn ? (
           <div className={styles.editcontainer}>
-           <h1>Plataformas</h1> 
-          <input className={styles.platform}
-          type="text"
-          value={platform}
-          onChange={(ev) => setPlatform(ev.target.value)}
-        />
-        <h1>Gêneros</h1>
-        <input className={styles.genre}
-          type="text"
-          value={genre}
-          onChange={(ev) => setGenre(ev.target.value)}
-        />
-          <button className={styles.button} onClick={updateGame}>
-            Atualizar Jogo
-          </button>
+            <h1>Plataformas</h1>
+            <input className={styles.platform}
+              type="text"
+              value={platform}
+              onChange={(ev) => setPlatform(ev.target.value)}
+            />
+            <h1>Gêneros</h1>
+            <input className={styles.genre}
+              type="text"
+              value={genre}
+              onChange={(ev) => setGenre(ev.target.value)}
+            />
+            <button className={styles.button} onClick={updateGame}>
+              Atualizar Jogo
+            </button>
           </div>
         ) : (
           <button className={styles.button} onClick={submitGame}>
@@ -417,5 +530,6 @@ function Home() {
     </main>
   );
 }
+
 
 export default Home;
