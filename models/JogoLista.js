@@ -42,13 +42,14 @@ export default class NewGameList {
     return this.games.find(game => game.id === id);
   }
 
-  updateNewGame(flag, name, platform, genres, released, background_image) {
+  updateNewGame(flag, name, platforms, genres, released, background_image) {
     const NewGame = this.getNewGamePorId(flag);
     console.log("Antes");
     console.log(NewGame);
+    console.log(platforms);
     if (NewGame) {
       NewGame.name = name;
-      NewGame.platform = platform;
+      NewGame.platforms = platforms;
       NewGame.genres = genres;
       NewGame.released = released;
       NewGame.background_image = background_image;

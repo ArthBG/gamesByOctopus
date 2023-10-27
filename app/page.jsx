@@ -31,7 +31,6 @@ function Home() {
 
   const submitGame = () => {
     console.log("Submit");
-    console.log(genre);
     const newGame = new NewGame(name, platform, genre, date, image);
     let indica = false;
     if (!newGameList.some((game) => game.name === newGame.name)) {
@@ -110,18 +109,6 @@ function Home() {
   };
 
 
-  const uniquePlatforms = () => {
-    const allPlatforms = gamelist.getGames().map((game) => {
-      if (game.platforms && Array.isArray(game.platforms)) {
-        return game.platforms.map((platform) => platform.platform.name);
-      }
-      return [];
-    });
-
-    const flatPlatforms = allPlatforms.flat();
-    const uniquePlatforms = [...new Set(flatPlatforms.sort())];
-    return uniquePlatforms;
-  };
 
   useEffect(() => {
     filteredGames();
