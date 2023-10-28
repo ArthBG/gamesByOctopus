@@ -95,7 +95,7 @@ function Home() {
       try {
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 150) {
+        while (allGameData.length < 1000) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
@@ -125,39 +125,58 @@ function Home() {
     }
   }, [allGames]);
 
-
-
-  const filteredGames = () => {
-    const filters = HolyGames.filter((game) => {
-      const platformNames = game.platforms.map((platform) => platform.platform.name);
-      const gameGenres = game.genres.map((genre) => genre.name);
-      const platformFilter = selectedPlatform.length == 0 || selectedPlatform.some((selectedPlatform) => platformNames.includes(selectedPlatform));
-      const genreFilter = selectedGenre == 'all' || gameGenres.includes(selectedGenre);
-      const ratingFilter = selectedRating == 'all' || game.rating == selectedRating;
-
-
-      return platformFilter && genreFilter && ratingFilter;
-    });
-    setHolyGames(filters);
-  };
-
-
-
   useEffect(() => {
-    filteredGames();
+    const filteredGames = filterGames();
+    setHolyGames(filteredGames);
   }, [selectedPlatform, selectedGenre, selectedRating]);
+  
+
+
+
+  const filterGames = () => {
+    let filteredGames = newGameList;
+    if (selectedPlatform !== 'all') {
+      filteredGames = filteredGames.filter((game) => {
+        return game.platforms.includes(selectedPlatform);
+      });
+    }
+    if (selectedGenre !== 'all') {
+      filteredGames = filteredGames.filter((game) => {
+        return game.genres.includes(selectedGenre);
+      });
+    }
+    if (selectedRating !== 'all') {
+      filteredGames = filteredGames.filter((game) => {
+        return game.rating === Number(selectedRating);
+      });
+    }
+    return filteredGames;
+
+  }
 
 
   const uniqueGenres = () => {
     const allGenres = gamelist.getGames().map((game) => {
       if (Array.isArray(game.genres)) {
-        return game.genres.map((genre) => genre.name);
+        return game.genres;
       }
       return [];
     });
     const flatGenres = allGenres.flat();
     const uniqueGenres = [...new Set(flatGenres.sort())];
     return uniqueGenres;
+  };
+
+  const uniquePlatforms = () => {
+    const allPlatforms = gamelist.getGames().map((game) => {
+      if (Array.isArray(game.platforms)) {
+        return game.platforms;
+      }
+      return [];
+    });
+    const flatPlatforms = allPlatforms.flat();
+    const uniquePlatforms = [...new Set(flatPlatforms.sort())];
+    return uniquePlatforms;
   };
 
   const uniqueRatings = () => {
@@ -167,31 +186,10 @@ function Home() {
   };
 
   const handleSearch = () => {
-    const filteredGames = gamelist.getGames().filter((game) => {
+    const filterGames = gamelist.getGames().filter((game) => {
       return game.name.toLowerCase().includes(lowerSearch);
     });
-    setHolyGames(filteredGames);
-  };
-  const handlePlatformChange = (event) => {
-    const selectedPlatform = event.target.value;
-    setPlatform((prevPlatforms) => {
-      if (prevPlatforms.includes(selectedPlatform)) {
-        return prevPlatforms.filter((platform) => platform !== selectedPlatform);
-      } else {
-        return [...prevPlatforms, selectedPlatform];
-      }
-    });
-  };
-
-  const handleGenreChange = (event) => {
-    const selectedGenre = event.target.value;
-    setGenre((prevGenres) => {
-      if (prevGenres.includes(selectedGenre)) {
-        return prevGenres.filter((genre) => genre !== selectedGenre);
-      } else {
-        return [...prevGenres, selectedGenre];
-      }
-    });
+    setHolyGames(filterGames);
   };
 
   const nextPage = () => {
@@ -225,6 +223,7 @@ function Home() {
     setSelectedPlatform('all');
     setSelectedGenre('all');
     setSelectedRating('all');
+    setSearch('');
   };
   const clearInfos = () => {
     setname('');
@@ -281,6 +280,14 @@ function Home() {
           onChange={(ev) => setSelectedPlatform(ev.target.value)}
         >
           <option value="all">Filtre pela plataforma:</option>
+          <option value="all">Todas</option>
+          {
+            uniquePlatforms().map((platform) => (
+              <option key={platform} value={platform}>
+                {platform}
+              </option>
+            ))
+          }
 
         </select>
         <select
@@ -289,6 +296,7 @@ function Home() {
           onChange={(ev) => setSelectedGenre(ev.target.value)}
         >
           <option value="all">Ordenar por gênero:</option>
+          <option value="all">Todos</option>
           {uniqueGenres().map((genre) => (
             <option key={genre} value={genre}>
               {genre}
@@ -301,6 +309,7 @@ function Home() {
           onChange={(ev) => setSelectedRating(ev.target.value)}
         >
           <option value="all">Ordenar por avaliação:</option>
+          <option value="all">Todas</option>
           {uniqueRatings().map((rating) => (
             <option key={rating} value={rating}>
               {rating}
