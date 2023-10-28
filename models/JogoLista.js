@@ -15,7 +15,7 @@ export default class NewGameList {
       const released = game.released;
       const rating = game.rating; 
       const background_image = game.background_image;
-      const newGamev = new NewGame(id, name, platforms, genres, released, rating, background_image);
+      const newGamev = new NewGame(id, name, platforms, genres, released, background_image, rating);
       this.addNewGame(newGamev);
   })
 

@@ -53,8 +53,8 @@ function Home() {
 
   }
   const submitGame = () => {
-    //console.log("Submit");
-    const newGame = new NewGame(name, platform, genre, date, image);
+    const randomId = Math.floor(Math.random() * 100000);
+    const newGame = new NewGame(randomId, name, platform, genre, date, image);
     let indica = false;
     if (validation() == false) {
       setMsg(true)
@@ -105,7 +105,7 @@ function Home() {
         gamelist.demonMethod(allGameData);
         setHolyGames(gamelist.getGames())
       } catch (error) {
-        //     console.log(error);
+         console.log(error);
       }
     };
 
@@ -115,7 +115,7 @@ function Home() {
   useEffect(() => {
     if (allGames && allGames.data) {
       allGames.data.map((game) => {
-        const newGame = new NewGame(game.name, game.parent_platforms, game.genres, game.released, game.background_image);
+        const newGame = new NewGame(game.name, game.parent_platforms, game.genres, game.released, game.rating, game.background_image);
         gamelist.addNewGame(newGame);
       });
       const newGamesUpdated = [...newGameList, ...gamelist.getGames()];
@@ -237,8 +237,8 @@ function Home() {
 
 
   const updateGame = () => {
-    const platformSplited = typeof platform === 'string' ? platform.split(',') : [];
-    const genreSplited = typeof genre === 'string' ? genre.split(',') : [];
+    const platformSplited = typeof platform === 'string' ? platform.split(',') : [platform];
+    const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
     gamelist.updateNewGame(flag, name, platformSplited, genreSplited, date, image);
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
@@ -246,22 +246,11 @@ function Home() {
     clearInfos();
     changeDisplay();
   }
-  const formatDate = (date) => {
-    if (!date) return '';
-
-    const originalDate = new Date(date); // Converta a data original para um objeto Date
-    const year = originalDate.getFullYear();
-    const month = String(originalDate.getMonth() + 1).padStart(2, '0');
-    const day = String(originalDate.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  }
 
   const editGame = (id) => {
     const game = gamelist.getNewGamePorId(id);
     setname(game.name);
-      setDate("");
-    console.log(game.genres)
+    setDate(game.released);
     setImage(game.background_image);
     setPlatform(game.platforms);
     setGenre(game.genres);
@@ -379,35 +368,23 @@ function Home() {
         {
           msg ? (date == '' ? <ErrorMsg msg={"Preencha a data "} /> : null) : null
         }
-        <h1>Imagem do jogo</h1>
+        <h1>URL da imagem</h1>
         <input
-          className={styles.imageinput}
+          className={styles.nameinput}
           type="text"
           value={image}
           onChange={(ev) => setImage(ev.target.value)}
         />
         {
-          image == "" ? <ErrorMsg msg={"Preencha a imagem do jogo"} /> : null
+          msg ? (image == '' ? <ErrorMsg msg={"Preencha a url do jogo"} /> : null) : null
         }
         {
-          image == "" ? <ErrorMsg msg={"Preencha a url do jogo"} /> : null
+          url ? (URLInvalida(image) ? null : <ErrorMsg msg={"URL inválida"} />) : null
         }
 
         {editbtn ? (
           <div className={styles.editcontainer}>
-            <h1>Plataformas</h1>
-            <input className={styles.platform}
-              type="text"
-              value={platform}
-              onChange={(ev) => setPlatform(ev.target.value)}
-            />
-            <h1>Gêneros</h1>
-            <input className={styles.genre}
-              type="text"
-              value={genre}
-              onChange={(ev) => setGenre(ev.target.value)}
-            />
-            <button className={styles.button} onClick={ updateGame}>
+            <button className={styles.button} onClick={updateGame}>
               Atualizar Jogo
             </button>
           </div>

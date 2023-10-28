@@ -45,9 +45,9 @@ function Header({ changeDisplay }) {
                                 </Link>
                             </li>
                             <li>
-                                <Link className={styles.a} href={"#"}>
+                                <Link className={styles.a} href={'#'}onClick={changeDisplay}>
                                     <span className={styles.icon}>
-                                        <GiRetroController onClick={changeDisplay} className={styles.fa} />
+                                        <GiRetroController className={styles.fa} />
                                     </span>
                                     <span className={styles.title}>Crie seu jogo</span>
                                     </Link>
