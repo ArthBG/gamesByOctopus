@@ -9,6 +9,11 @@
   margin-left: 1rem;
 
 }
+.loader{
+    align-items: center;
+    text-align: center;
+    margin-top: 15rem; 
+}
 .scrollbtn{
   position: fixed;
   top: 75%;
