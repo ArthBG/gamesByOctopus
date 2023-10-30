@@ -1,54 +1,95 @@
+
 "use client";
 import { fetchApiDetails } from '@/data/apiconsumer';
 import React, { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import Header from '@/app/components/header/header';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import Link from 'next/link';
+
 
 const gameDescription = ({ params }) => {
-    const [games, setGames] = useState([]);
-    useEffect(() => {
-        const gamesFetch = async () => {
-            try {
-                const dados = await fetchApiDetails(params.id);
-                setGames(dados);
-            } catch (error) {
-                throw error;
-            }
-        };
+  const [games, setGames] = useState([]);
+  useEffect(() => {
+    const gamesFetch = async () => {
+      try {
+        const dados = await fetchApiDetails(params.id);
+        setGames(dados);
+      } catch (error) {
+        throw error;
+      }
+    };
 
-        gamesFetch();
-    }, []);
+    gamesFetch();
+  }, []);
 
-    return (
-        <div className={styles.container}>
-            <Header />
-            <div className={styles.maincontainer}>
-            <h1>{games.name}</h1>
-            <img className={styles.gameThumb} src={games.background_image} alt={games.name} />
-            <p className={styles.rating}>{games.rating}</p>
-            <p className={styles.released}>{games.released}</p>
-            <p className={styles.description}>{games.description_raw}</p>
-            <div className={styles.tabs}>
-            <Tabs>
-    <TabList>
-      <Tab>Plataformas</Tab>
-      <Tab>Gêneros</Tab>
-    </TabList>
+  return (
+    <div className={styles.container}>
+      <Header />
+      <div className={styles.imageContainer}>
+        <img className={styles.gameThumb} src={games.background_image} alt={games.name} height={540} width={1200} />
 
-    <TabPanel>
-      <h2>{Array.isArray(games.platforms) ? games.platforms.map((platform) => platform.platform.name).join(", ") : (games.platforms)}</h2>
-    </TabPanel>
-    <TabPanel>
-      <h2>{Array.isArray(games.genres) ? games.genres.map((genre) => genre.name).join(", ") : (games.genres)}</h2>
-    </TabPanel>
-  </Tabs>
-            </div>
-            
-            </div>
+
+
+        <div className={styles.divrating}>
+          <p className={styles.rating}>{games.rating}</p>
         </div>
-    );
+
+
+        <div className={styles.platformsContainer}>
+          {games.parent_platforms ? (
+            games.parent_platforms.map((platform) => (
+              <p className={styles.platforms}>{platform.platform.name}</p>
+            ))
+          ) : null}
+        </div>
+
+      </div>
+
+      <div className={styles.descricao}>
+        <p className={styles.h2}>{games.name} Game</p>
+        <p className={styles.description}>{games.description_raw}</p>
+      </div>
+      <div className={styles.data}>
+        <h3 className={styles.h3}>Data de lançamento:</h3>
+        <h6 className={styles.released}>{games.released}</h6>
+      </div>
+
+
+      <h5 className={styles.h6g}>Gênero do jogo:</h5>
+      {games.genres ? (
+        games.genres.map((genre) => (
+
+          <div className={styles.genrediv}>
+            <p className={styles.genres}>{genre.name}</p>
+          </div>
+
+
+
+        ))
+      ) : null}
+      <h5 className={styles.h6h}>Desenvolvedores do jogo:</h5>
+      {games.developers ? (
+        games.developers.map((genre) => (
+
+          <div className={styles.devs}>
+            <p className={styles.developers}>{genre.name}</p>
+          </div>
+
+
+
+        ))
+      ) : null}
+      {games.website ? (
+        <Link className={styles.link} href={games.website} target='blank'>{games.name}</Link>
+      ) : (
+        <p>{games.name}</p>
+      )}
+
+
+
+
+    </div >
+  );
 };
 
 export default gameDescription;
