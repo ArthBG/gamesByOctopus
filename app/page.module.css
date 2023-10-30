@@ -6,8 +6,6 @@
   font-size: 1.2rem;
 }
 
-
-
 .loader{
     align-items: center;
     text-align: center;
@@ -160,10 +158,11 @@
   }
   .header2{
     display: block;
+    width: 100%;
   }
   .header{
     display: none;
-    width: 70%;
+    
   }
   .tituloprincipal {
     width: 90%;
