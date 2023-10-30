@@ -275,7 +275,7 @@ function Home() {
     <main className={styles.main}>
       <Header changeDisplay={changeDisplay} />
       <div className={styles.container}>
-        <h1>Games</h1>
+        <h1>OctoPlay</h1>
         <div className={styles.divinput}>
           <input
             className={styles.searchInput}
