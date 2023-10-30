@@ -302,7 +302,7 @@ function Home() {
           <option value="all" className={styles.op}>Todas</option>
           {
             uniquePlatforms().map((platform) => (
-              <option key={platform} value={platform}>
+              <option className={styles.op} key={platform} value={platform}>
                 {platform}
               </option>
             ))
@@ -317,7 +317,7 @@ function Home() {
           <option value="all" className={styles.op}>Ordenar por gênero:</option>
           <option value="all" className={styles.op}>Todos</option>
           {uniqueGenres().map((genre) => (
-            <option key={genre} value={genre}>
+            <option className={styles.op} key={genre} value={genre}>
               {genre}
             </option>
           ))}
@@ -327,10 +327,10 @@ function Home() {
           value={selectedStore}
           onChange={(ev) => setSelectedStore(ev.target.value)}
         >
-          <option value="all">Ordenar por loja:</option>
-          <option value="all">Todas</option>
+          <option className={styles.op} value="all">Ordenar por loja:</option>
+          <option className={styles.op} value="all">Todas</option>
           {uniqueStores().map((store) => (
-            <option key={store} value={store}>
+            <option className={styles.op} key={store} value={store}>
               {store}
             </option>
           ))}
