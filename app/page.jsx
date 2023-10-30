@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { FiSearch } from 'react-icons/fi';
 import { fetchAsyncGames } from '@/data/gamedata';
 import styles from './page.module.css';
@@ -351,21 +352,13 @@ function Home() {
         </div>
       </div>
       <div className={styles.scrollbtn}>
-        <button className={styles.btnscroll} onClick={upScroll}>
-          SETA PRA CIMA î
-        </button>
-        <button className={styles.btnscroll} onClick={downScroll}>
-          SETA PRA BAIXO î
-        </button>
-      </div>
-      {/* <div className={styles.pagesbuttons}>
-        <button className={styles.button} onClick={previousPage}>
-          Página anterior
-        </button>
-        <button className={styles.button} onClick={nextPage}>
-          Próxima página
-        </button>
-      </div> */}
+          <button className={styles.btnscroll} onClick={upScroll}>
+          <Image src='/setaredondacima.png' className={styles.setapcima} width={50} height={50}></Image>
+          </button>
+          <button className={styles.btnscrolls} onClick={downScroll}>
+          <Image src='/setaredondabaixo.png' className={styles.setapbaixo} width={50} height={50}></Image>
+          </button>
+        </div>   
 
       <div className={styles.containerInputs} style={{ display: divInput ? 'block' : 'none' }} value={divInput}>
         <h1>Nome do Jogo</h1>
