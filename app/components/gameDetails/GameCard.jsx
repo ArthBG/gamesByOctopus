@@ -32,6 +32,9 @@ function GameCard({ game, removeGame, editGame }) {
         <p className={styles.genres}>
           {Array.isArray(game.genres) ? game.genres.join(", ") : game.genres}
         </p>
+        <p className={styles.stores}>
+          {Array.isArray(game.stores) ? game.stores.join(", ") : game.stores}
+        </p>
         <p className={styles.platforms}>
           {Array.isArray(game.platforms) ? game.platforms.join(", ") : game.platforms}
         </p>
