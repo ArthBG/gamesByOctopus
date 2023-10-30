@@ -7,6 +7,10 @@
 
 }
 
+.genrediv{
+    color: black;
+}
+
 .imageContainer {
     margin-left: 5%;
     position: relative;
@@ -169,6 +173,21 @@
     border-radius: 5px;
     left: 79.9%;
 
+}
+.button{
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-left: 10%;
+    margin-top: 1%;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    text-align: center;
+    display: inline-block;
+    width: 7%;
+    margin-bottom: 1%;
 }
 
 .h6h {
