@@ -9,7 +9,7 @@ function GameCard({ game, removeGame, editGame }) {
 
   const FormatDatePTBR = (date) => {
     const dateFormated = new Date(date);
-    const day = dateFormated.getDate();
+    const day = dateFormated.getDate() + 1;
     const month = dateFormated.getMonth();
     const year = dateFormated.getFullYear();
     return `${day}/${month}/${year}`;
