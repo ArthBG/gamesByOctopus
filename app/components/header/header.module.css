@@ -8,11 +8,13 @@
 }
 
 .cont1 {
-    border-bottom: black solid 2px;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
 }
 
 .logoOctopus {
-    margin-left: 5px;
     font-size: 20px;
 }
 
@@ -23,8 +25,7 @@
 
 .navigation {
     position: relative;
-    width: 70px;
-    height: 300px;
+    margin-left: 5px;
 }
 
 .navigation ul {
