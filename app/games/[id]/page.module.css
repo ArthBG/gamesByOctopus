@@ -2,7 +2,8 @@
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-    background-color: black;
+    background-color: white;
+    color: black;
 
 }
 
@@ -22,7 +23,7 @@
 .h1 {
     position: absolute;
     top: 70%;
-    left: 15%;
+    left: 22%;
     transform: translate(-50%, -50%);
     color: black;
     font-size: 30px;
@@ -32,14 +33,11 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
     transition-duration: 0.4s;
 }
 
-.h1:hover {
-    background-color: #50de71;
-    color: rgb(30, 92, 216);
-    box-shadow: 0 12px 16px 0 rgb(30, 92, 216), 0 17px 50px 0 rgb(30, 92, 216);
-}
+
 
 .divrating {
     position: absolute;
@@ -100,14 +98,15 @@
 
 .h6 {
     color: #fff;
-    margin-left: 30vh; 
+    margin-left: 30vh;
 }
 
 
 .released {
     font-size: 14px;
     color: rgb(155, 155, 155);
-    margin-left: 76%;
+    margin-left: 50%;
+    margin-top: 2%;
 
 }
 
@@ -129,43 +128,108 @@
 
 
 .h3 {
-    color: #fff;
+    color: black;
     font-size: 20px;
-    margin-left: 76%;
+    margin-left: 44%;
 }
 
+/* .stores {
+    color: #fff;
+    margin-left: 76%;
+    font-size: 20px;
+    margin-top: 4%;
+}
+ */
+
+.link {
+    color: #fff;
+    margin-left: 76%;
+    font-size: 20px;
+    margin-top: 4%;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+}
 
 .h6g {
     color: #fff;
     margin-left: 17vh;
-    margin-top: 4%;
+    margin-top: -5%;
+    font-size: 20px;
+}
+
+.developers {
+    position: absolute;
+    top: 96%;
+    background-color: #bceb21;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    left: 79.9%;
+
+}
+
+.h6h {
+    color: black;
+    position: absolute;
+    top: 90%;
+    display: block;
+    font-weight: bold;
+    left: 80%;
     font-size: 20px;
 }
 
 .data {
-    position: absolute;
-    top: 90%;
+
     color: #fff;
     padding: 5px 10px;
     border-radius: 5px;
-    left: 40%;
-    width: 60%;
-    margin-top: 10px;
+    width: 70%;
+
 }
 
+.devs {
+    color: #fff;
+}
+
+.Header2 {
+    display: none;
+}
+
+
 @media screen and (max-width: 650px) {
+    .Header2 {
+        display: block;
+        width: 100%;
+        color: white;
+    }
+
+    .container {
+        background-color: white;
+        margin: 0 auto;
+        overflow-x: hidden;
+
+    }
+
+
+    .header {
+        display: none;
+    }
+
     .gameThumb {
         width: 100%;
         margin-left: -6%;
         height: auto;
     }
 
-    .released {
-display: none;    }
 
-    .h1 {
+    .released {
         display: none;
     }
+
+
 
     .divrating {
         margin-top: 9%;
@@ -174,19 +238,21 @@ display: none;    }
     }
 
     .data {
-        margin-bottom: -90%; 
+        margin-bottom: -90%;
         left: 10%;
-       text-align: center ;
-        
+        text-align: center;
+
     }
 
     .h6g {
         font-size: 16px;
         margin-left: 0;
+        color: black;
     }
 
     .platformsContainer {
-        left: 4%;
+        width: 100%;
+        left: -3%;
     }
 
     .descricao {
@@ -200,11 +266,108 @@ display: none;    }
     }
 
     .h3 {
-       display: none;
+        display: none;
     }
 
     .genrediv {
-        width: auto;
+        margin-left: 0;
+        margin-top: 0;
+        width: 100%;
+        text-align: center;
+
+
+    }
+
+    .h6h {
+        margin-left: 0;
+    }
+
+    .devs {
+        margin-left: 0;
+
+    }
+
+
+    .header2 {
+        display: block;
+        width: 100%;
+    }
+
+    .header {
+        display: none;
+
+    }
+
+    .descricao {
+        text-align: justify;
+        width: 100%;
+        margin: 0;
+    }
+
+    .container {
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        overflow-x: hidden;
+        width: 100%;
+
+    }
+
+    .imageContainer {
+        margin-left: 5%;
+        position: relative;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .gameThumb {
+        border: solid 2px rgb(47, 47, 47);
+        border-radius: 3px;
+        position: relative;
+        width: 100%;
+        height: auto;
+
+    }
+
+    .h1 {
+        position: absolute;
+        top: 70%;
+        left: 32%;
+        transform: translate(-50%, -50%);
+        color: black;
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        background-color: #e9ec32;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition-duration: 0.4s;
+    }
+
+
+    .divrating {
+        position: absolute;
+        top: 90%;
+        background-color: #ffcc00;
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        left: 88%;
+
+    }
+
+    .rating {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .genres {
+        width: 100%;
+    }
+
+    .genrediv {
+        width: 90%;
         margin-left: 0;
     }
 }
