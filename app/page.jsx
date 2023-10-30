@@ -9,6 +9,7 @@ import GameList from './components/gameDetails/GameList';
 import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
 import ErrorMsg from './components/errormsg/ErrorMsg';
+import { ColorRing } from 'react-loader-spinner';
 
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
@@ -19,6 +20,7 @@ function Home() {
   const [editbtn, setEditbtn] = useState(false);
   const [divGames, setDivGames] = useState(true);
   const [divInput, setDivInput] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [newGameList, setNewGameList] = useState(gamelist.getGames());
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -36,10 +38,10 @@ function Home() {
 
   function validation() {
     console.log(name, platform, genre, date, image)
-    if(name == '' || platform == '' || genre == '' || date == '' || image == ''){
+    if (name == '' || platform == '' || genre == '' || date == '' || image == '') {
       return false;
-    }else{
-            return true;
+    } else {
+      return true;
     }
   }
 
@@ -48,7 +50,7 @@ function Home() {
     if (image.endsWith(".jpg") || image.endsWith(".png") || image.endsWith(".gif") || image.endsWith(".jpeg")) {
       console.log('passou');
       return true;
-    } else{
+    } else {
       return false
     }
 
@@ -94,6 +96,8 @@ function Home() {
   useEffect(() => {
     const fetchAllGames = async () => {
       try {
+        setLoading(true);
+
         let allGameData = [];
         let currentPage = 1;
         while (allGameData.length < 100) {
@@ -104,9 +108,11 @@ function Home() {
         const visibleGames = allGameData.slice(0, itemsPerPage);
         setAllGames(visibleGames);
         gamelist.demonMethod(allGameData);
-        setHolyGames(gamelist.getGames())
+        setHolyGames(gamelist.getGames());
       } catch (error) {
-         console.log(error);
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -130,7 +136,7 @@ function Home() {
     const filteredGames = filterGames();
     setHolyGames(filteredGames);
   }, [selectedPlatform, selectedGenre, selectedRating]);
-  
+
 
 
 
@@ -260,10 +266,10 @@ function Home() {
     setFlag(id);
   }
 
-  const upScroll = () =>{
+  const upScroll = () => {
     window.scrollTo(0, 0);
   }
-  const downScroll = () =>{
+  const downScroll = () => {
     window.scrollTo(0, 100000);
   }
   return (
@@ -326,6 +332,21 @@ function Home() {
         <button className={styles.button} onClick={clearFilters}>
           Redefinir Filtros
         </button>
+        <div className={styles.loaderdiv}>
+        {loading && (
+        <div className={styles.loader}>
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={['#1E90FF', '#0000FF', '#	000000', '#	2F4F4F', '#	B0E0E6']}
+          />
+        </div>
+      )}
+      </div>
         <div className={styles.containerGames} style={{ display: divGames ? 'block' : 'none' }} value={divGames}>
           <GameList games={HolyGames} removeGame={removeGames} editGame={editGame} />
         </div>
@@ -337,15 +358,7 @@ function Home() {
           <button className={styles.btnscrolls} onClick={downScroll}>
           <Image src='/setaredondabaixo.png' className={styles.setapbaixo} width={50} height={50}></Image>
           </button>
-        </div>    
-      {/* <div className={styles.pagesbuttons}>
-        <button className={styles.button} onClick={previousPage}>
-          Página anterior
-        </button>
-        <button className={styles.button} onClick={nextPage}>
-          Próxima página
-        </button>
-      </div> */}
+        </div>   
 
       <div className={styles.containerInputs} style={{ display: divInput ? 'block' : 'none' }} value={divInput}>
         <h1>Nome do Jogo</h1>
@@ -419,13 +432,13 @@ function Home() {
 
 
         )}
-       
+
 
 
       </div>
     </main>
   );
-}	
+}
 
 
 export default Home;

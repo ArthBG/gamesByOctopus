@@ -1,3 +1,4 @@
+
 .main {
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
@@ -6,13 +7,14 @@
   font-size: 1.2rem;
 }
 
-.checkbox {
-  color: rgb(255, 255, 255);
-  margin-left: 1rem;
 
+
+.loader{
+    align-items: center;
+    text-align: center;
+    margin-top: 15rem; 
 }
-
-.scrollbtn {
+.scrollbtn{
   position: fixed;
   top: 75%;
   right: 0;
