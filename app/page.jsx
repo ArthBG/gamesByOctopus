@@ -332,10 +332,10 @@ function Home() {
       </div>
       <div className={styles.scrollbtn}>
           <button className={styles.btnscroll} onClick={upScroll}>
-          <Image src='/setapcima.png' className={styles.setapcima} width={50} height={50}></Image>
+          <Image src='/setaredondacima.png' className={styles.setapcima} width={50} height={50}></Image>
           </button>
           <button className={styles.btnscrolls} onClick={downScroll}>
-          <Image src='/setapabaixo.png' className={styles.setapbaixo} width={50} height={50}></Image>
+          <Image src='/setaredondabaixo.png' className={styles.setapbaixo} width={50} height={50}></Image>
           </button>
         </div>    
       {/* <div className={styles.pagesbuttons}>
