@@ -285,7 +285,7 @@ function Home() {
         <Header changeDisplay={changeDisplay} />
       </div>
       <div className={styles.header2}>
-        <Header2 />
+      <Header2 changeDisplay={changeDisplay} />
       </div>
       <div className={styles.container}>
         <h1 className={styles.tit}>OctoPlay</h1>
@@ -444,12 +444,12 @@ function Home() {
 
         {editbtn ? (
           <div className={styles.editcontainer}>
-            <button className={styles.button} onClick={updateGame}>
+            <button className={styles.button11} onClick={updateGame}>
               Atualizar Jogo
             </button>
           </div>
         ) : (
-          <button className={styles.button} onClick={submitGame}>
+          <button className={styles.button11} onClick={submitGame}>
             Adicionar Jogo
           </button>
 
