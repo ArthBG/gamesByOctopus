@@ -153,6 +153,7 @@
 }
 
 @media (max-width: 768px) {
+
   .container {
     margin: 0;
   }
@@ -171,10 +172,10 @@
     width: 90%;
   }
   .select {
-    width: 90%;
+    width: 100%;
   }
   .button {
-    width:100%;
+    width:80%;
   }
   .containerInputs {
     max-width: 90%;
@@ -187,6 +188,12 @@
   }
   .containerInputs button {
     width: 90%;
+  }
+  .containerGames{
+    width: 100%;
+  }
+  .scrollbtn {
+    margin-left: 0; /* Remova a margem negativa */
   }
 
 }
