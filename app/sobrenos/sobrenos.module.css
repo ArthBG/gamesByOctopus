@@ -87,6 +87,7 @@
     color: rgb(0, 0, 0);
     box-shadow: 0 0 20px rgba(122, 123, 132, 0.5);
     cursor: pointer;
+    margin-top: 5rem;
   }
    
   .card:hover{
@@ -111,6 +112,9 @@
     margin-right: 1rem;
     text-align: left;
     font-size: 13px;
+  }
+  .divisao{
+    margin-top:1rem;
   }
 
 }
