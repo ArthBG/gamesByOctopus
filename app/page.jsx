@@ -277,7 +277,7 @@ function Home() {
     <main className={styles.main}>
       <Header changeDisplay={changeDisplay} />
       <div className={styles.container}>
-        <h1>Games</h1>
+        <h1 className={styles.tit}>OctoPlay</h1>
         <div className={styles.divinput}>
           <input
             className={styles.searchInput}
@@ -288,13 +288,14 @@ function Home() {
           />
           <FiSearch onClick={handleSearch} />
         </div>
+        <div className={styles.allselect}>
         <select
           className={styles.select}
           value={selectedPlatform}
           onChange={(ev) => setSelectedPlatform(ev.target.value)}
         >
-          <option value="all">Filtre pela plataforma:</option>
-          <option value="all">Todas</option>
+          <option value="all" className={styles.op}>Filtre pela plataforma:</option>
+          <option value="all" className={styles.op}>Todas</option>
           {
             uniquePlatforms().map((platform) => (
               <option key={platform} value={platform}>
@@ -309,8 +310,8 @@ function Home() {
           value={selectedGenre}
           onChange={(ev) => setSelectedGenre(ev.target.value)}
         >
-          <option value="all">Ordenar por gênero:</option>
-          <option value="all">Todos</option>
+          <option value="all" className={styles.op}>Ordenar por gênero:</option>
+          <option value="all" className={styles.op}>Todos</option>
           {uniqueGenres().map((genre) => (
             <option key={genre} value={genre}>
               {genre}
@@ -322,17 +323,20 @@ function Home() {
           value={selectedRating}
           onChange={(ev) => setSelectedRating(ev.target.value)}
         >
-          <option value="all">Ordenar por avaliação:</option>
-          <option value="all">Todas</option>
+          <option value="all" className={styles.op}>Ordenar por avaliação:</option>
+          <option value="all" className={styles.op}>Todas</option>
           {uniqueRatings().map((rating) => (
             <option key={rating} value={rating}>
               {rating}
             </option>
           ))}
         </select>
+        </div>
+        <div className={styles.btnazul}>
         <button className={styles.button} onClick={clearFilters}>
           Redefinir Filtros
         </button>
+        </div>
         <div className={styles.loaderdiv}>
         {loading && (
         <div className={styles.loader}>
