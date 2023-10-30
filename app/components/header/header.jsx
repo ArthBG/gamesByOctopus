@@ -12,9 +12,9 @@ import Link from 'next/link';
 
 
 
-function Header() {
+function Header({ changeDisplay }) {
 
-const meuLink = "https://linktr.ee/joao.senai"
+    const meuLink = "https://linktr.ee/joao.senai"
 
     return (
         <div>
@@ -43,6 +43,14 @@ const meuLink = "https://linktr.ee/joao.senai"
                                     </span>
                                     <span className={styles.title}>Sobre Nós</span>
                                 </Link>
+                            </li>
+                            <li>
+                                <Link className={styles.a} href={'#'}onClick={changeDisplay}>
+                                    <span className={styles.icon}>
+                                        <GiRetroController className={styles.fa} />
+                                    </span>
+                                    <span className={styles.title}>Crie seu jogo</span>
+                                    </Link>
                             </li>
                             <li>
                                 <Link className={styles.a} href={meuLink} target='_blank'>

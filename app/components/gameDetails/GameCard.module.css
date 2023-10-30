@@ -2,7 +2,7 @@
 .card {
     border: 1px solid #e0e0e0;
     display: flex;
-    width: 20em;
+    width: 25rem;
     border-radius: 0.5rem;
     background-color: #f5f5f5;
     transition: transform 0.2s ease-in-out;
@@ -27,7 +27,7 @@
   }
   
   .title {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: bold;
     margin: 0;
     color: #333;
@@ -59,7 +59,7 @@
   .button {
     border: none;
     outline: none;
-    padding: 0.5rem 1rem; 
+    padding: 0.5rem 0.2rem; 
     background-color: transparent;
   }
   .button:hover {

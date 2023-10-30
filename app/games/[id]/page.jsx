@@ -30,6 +30,7 @@ const gameDescription = ({ params }) => {
                     <p className={styles.rating}>{games.rating}</p>
                 </div>
 
+
                 <div className={styles.platformsContainer}>
                     {games.parent_platforms ? (
                         games.parent_platforms.map((platform) => (
@@ -37,6 +38,15 @@ const gameDescription = ({ params }) => {
                         ))
                     ) : null}
                 </div>
+
+    <TabPanel>
+      <h2>{Array.isArray(games.platforms) ? games.platforms.map((platform) => platform.platform.name).join(", ") : (games.platforms)}</h2>
+    </TabPanel>
+    <TabPanel>
+      <h2>{Array.isArray(games.genres) ? games.genres.map((genre) => genre.name).join(", ") : (games.genres)}</h2>
+    </TabPanel>
+  </Tabs>
+
             </div>
 
             <div className={styles.descricao}>

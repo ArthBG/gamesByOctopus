@@ -1,23 +1,15 @@
 export default class NewGame {
-    constructor(nome, plataforma, genero, dataLancamento, imagem, descricao) {
-        this.nome = nome;
-        this.plataforma = plataforma;
-        this.genero = genero;
-        this.dataLancamento = dataLancamento;
-        this.imagem = imagem;
-        this.descricao = descricao;
-        this.id = this.generateId();
-    }
-
-    getInfo() {
-        return `${this.imageURL}${this.usuario}${this.nome}${this.descricao}${this.nota}${this.dataLancamento}${this.plataformas}`;
+    constructor(id, name, platforms, genres, released, background_image, rating) {
+        this.id = id;
+        this.name = name;
+        this.platforms = platforms;
+        this.genres = genres;
+        this.released = released;
+        this.background_image = background_image;
+        this.rating = rating;
+        console.log(NewGame);
     }
     generateId() {
         return Math.floor(Math.random() * 100000);
-    }
-    formatedData(data) {
-        const dataSplit = data.split('-');
-        const dataFormatada = `${dataSplit[2]}/${dataSplit[1]}/${dataSplit[0]}`;
-        return dataFormatada;
     }
 }
