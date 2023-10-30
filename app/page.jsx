@@ -341,7 +341,7 @@ function Home() {
             ariaLabel="blocks-loading"
             wrapperStyle={{}}
             wrapperClass="blocks-wrapper"
-            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+            colors={['#1E90FF', '#0000FF', '#	000000', '#	2F4F4F', '#	B0E0E6']}
           />
         </div>
       )}
