@@ -245,5 +245,28 @@
     margin-right: 4%;
   }
 
+  .button11{
+    width: 100%;
+  }
+
+  .nameinput{
+    width: 90%;
+  }
+  .containerInputs {
+    max-width: 100%;
+    margin-left: 17%;
+  
+  }
+  .allselect select {
+    width: 100%;
+    margin:auto;
+
+  }
+
+
+  
+  
+
+
 
 }

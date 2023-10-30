@@ -9,7 +9,7 @@ import { GiRetroController } from 'react-icons/gi';
 import { SiLinktree } from 'react-icons/si';
 import Link from 'next/link';
 
-function Header2() {
+function Header2({ changeDisplay }) {
 
 const meuLink = "https://linktr.ee/joao.senai"
 
@@ -33,7 +33,7 @@ const meuLink = "https://linktr.ee/joao.senai"
                 </Link>
                 </div>
                 <div className={styles.icons}>
-                <Link className={styles.a} href="#">
+                <Link className={styles.a} onClick={changeDisplay} href="#">
                 <GiRetroController className={styles.icon} />
                 </Link>
                 </div>
