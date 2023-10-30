@@ -142,23 +142,10 @@
   cursor: pointer;
 }
 
-.btnscroll:hover {
-  background-color: #499dfe;
-}
-
-
-.btnscrolls:hover {
-  background-color: #499dfe;
-}
-
 .btnscrolls {
   background-color: #fff;
   border: none;
   outline: none;
   transition: background-color 0.3s;
   cursor: pointer;
-}
-
-.setapabaixo {
-  margin-left: 4rem;
 }
