@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { FiSearch } from 'react-icons/fi';
 import { fetchAsyncGames } from '@/data/gamedata';
 import styles from './page.module.css';
@@ -331,10 +332,10 @@ function Home() {
       </div>
       <div className={styles.scrollbtn}>
           <button className={styles.btnscroll} onClick={upScroll}>
-            SETA PRA CIMA î
+          <Image src='/setapcima.png' className={styles.setapcima} width={50} height={50}></Image>
           </button>
-          <button className={styles.btnscroll} onClick={downScroll}>
-            SETA PRA BAIXO î
+          <button className={styles.btnscrolls} onClick={downScroll}>
+          <Image src='/setapabaixo.png' className={styles.setapbaixo} width={50} height={50}></Image>
           </button>
         </div>    
       {/* <div className={styles.pagesbuttons}>
