@@ -5,6 +5,7 @@
     width: 5%;
     height: 100vh;
     background-color: transparent;
+    z-index: 999;
 }
 
 .cont1 {

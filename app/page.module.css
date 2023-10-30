@@ -63,6 +63,13 @@
 .container {
   margin-left: 5rem;
 }
+.btnazul{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 1.5rem;
+}
 
 .button {
   background-color: #0070f3;
@@ -73,7 +80,6 @@
   cursor: pointer;
   margin: 1rem 0;
   text-align: center;
-  margin-left: 42.5rem;
 }
 
 /* Estilos gerais para o container */
