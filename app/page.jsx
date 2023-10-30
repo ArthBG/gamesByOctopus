@@ -259,6 +259,12 @@ function Home() {
     setFlag(id);
   }
 
+  const upScroll = () =>{
+    window.scrollTo(0, 0);
+  }
+  const downScroll = () =>{
+    window.scrollTo(0, 100000);
+  }
   return (
     <main className={styles.main}>
       <Header changeDisplay={changeDisplay} />
@@ -323,14 +329,22 @@ function Home() {
           <GameList games={HolyGames} removeGame={removeGames} editGame={editGame} />
         </div>
       </div>
-      <div className={styles.pagesbuttons}>
+      <div className={styles.scrollbtn}>
+          <button className={styles.btnscroll} onClick={upScroll}>
+            SETA PRA CIMA î
+          </button>
+          <button className={styles.btnscroll} onClick={downScroll}>
+            SETA PRA BAIXO î
+          </button>
+        </div>    
+      {/* <div className={styles.pagesbuttons}>
         <button className={styles.button} onClick={previousPage}>
           Página anterior
         </button>
         <button className={styles.button} onClick={nextPage}>
           Próxima página
         </button>
-      </div>
+      </div> */}
 
       <div className={styles.containerInputs} style={{ display: divInput ? 'block' : 'none' }} value={divInput}>
         <h1>Nome do Jogo</h1>
@@ -404,6 +418,7 @@ function Home() {
 
 
         )}
+       
 
 
       </div>
