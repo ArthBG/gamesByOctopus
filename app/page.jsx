@@ -28,11 +28,13 @@ function Home() {
   const [selectedPlatform, setSelectedPlatform] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('all');
   const [selectedRating, setSelectedRating] = useState('all');
+  const [selectedStore, setSelectedStore] = useState('all');
   const [name, setname] = useState('');
   const [platform, setPlatform] = useState('');
   const [genre, setGenre] = useState('');
   const [date, setDate] = useState('');
   const [image, setImage] = useState('');
+  const [store, setStore] = useState('');
   const lowerSearch = search.toLowerCase();
   const [allGames, setAllGames] = useState(null);
   const [HolyGames, setHolyGames] = useState([]);
@@ -58,7 +60,11 @@ function Home() {
   }
   const submitGame = () => {
     const randomId = Math.floor(Math.random() * 100000);
-    const newGame = new NewGame(randomId, name, platform, genre, date, image);
+    const platformSplited = typeof platform === 'string' ? platform.split(',') : [platform];
+    const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
+    const storeSplited = typeof store === 'string' ? store.split(',') : [store];
+    const rating = '';
+    const newGame = new NewGame(randomId, name, platformSplited, genreSplited, date, rating, image, storeSplited);
     let indica = false;
     if (validation() == false) {
       setMsg(true)
@@ -85,11 +91,13 @@ function Home() {
         setHolyGames(gamelist.getGames());
       }
     }
+    uniqueGenres();
+    uniquePlatforms();
+    uniqueStores();
 
   }
 
   const removeGames = (id) => {
-    // console.log(id);
     gamelist.removeGame(id);
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
@@ -123,7 +131,7 @@ function Home() {
   useEffect(() => {
     if (allGames && allGames.data) {
       allGames.data.map((game) => {
-        const newGame = new NewGame(game.name, game.parent_platforms, game.genres, game.released, game.rating, game.background_image);
+        const newGame = new NewGame(game.name, game.parent_platforms, game.genres, game.released, game.rating, game.background_image, game.stores);
         gamelist.addNewGame(newGame);
       });
       const newGamesUpdated = [...newGameList, ...gamelist.getGames()];
@@ -136,7 +144,10 @@ function Home() {
   useEffect(() => {
     const filteredGames = filterGames();
     setHolyGames(filteredGames);
-  }, [selectedPlatform, selectedGenre, selectedRating]);
+    uniqueGenres();
+    uniquePlatforms();
+    uniqueStores();
+  }, [selectedPlatform, selectedGenre, selectedRating, selectedStore, gamelist]);
 
 
 
@@ -153,9 +164,9 @@ function Home() {
         return game.genres.includes(selectedGenre);
       });
     }
-    if (selectedRating !== 'all') {
+    if (selectedStore !== 'all') {
       filteredGames = filteredGames.filter((game) => {
-        return game.rating === Number(selectedRating);
+        return game.stores.includes(selectedStore);
       });
     }
     return filteredGames;
@@ -187,38 +198,22 @@ function Home() {
     return uniquePlatforms;
   };
 
-  const uniqueRatings = () => {
-    const allRatings = gamelist.getGames().map((game) => game.rating);
-    const uniqueRatings = [...new Set(allRatings.sort())];
-    return uniqueRatings;
-  };
-
+  const uniqueStores = () => {
+    const allStores = gamelist.getGames().map((game) => {
+      if (Array.isArray(game.stores)) {
+        return game.stores;
+      }
+      return [];
+    });
+    const flatStores = allStores.flat();
+    const uniqueStores = [...new Set(flatStores.sort())];
+    return uniqueStores;
+  }
   const handleSearch = () => {
     const filterGames = gamelist.getGames().filter((game) => {
       return game.name.toLowerCase().includes(lowerSearch);
     });
     setHolyGames(filterGames);
-  };
-
-  const nextPage = () => {
-    const newPage = page + 1;
-    setPage(newPage);
-    const startIndex = (newPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const visibleGames = allGames.slice(startIndex, endIndex);
-    setHolyGames(visibleGames);
-  };
-
-
-  const previousPage = () => {
-    if (page > 1) {
-      const newPage = page - 1;
-      setPage(newPage);
-      const startIndex = (newPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const visibleGames = allGames.slice(startIndex, endIndex);
-      setHolyGames(visibleGames);
-    }
   };
   const changeDisplay = () => {
     setDivGames(!divGames);
@@ -230,7 +225,7 @@ function Home() {
   const clearFilters = () => {
     setSelectedPlatform('all');
     setSelectedGenre('all');
-    setSelectedRating('all');
+    setSelectedStore('all');
     setSearch('');
   };
   const clearInfos = () => {
@@ -246,7 +241,8 @@ function Home() {
   const updateGame = () => {
     const platformSplited = typeof platform === 'string' ? platform.split(',') : [platform];
     const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
-    gamelist.updateNewGame(flag, name, platformSplited, genreSplited, date, image);
+    const storeSplited = typeof store === 'string' ? store.split(',') : [store];
+    gamelist.updateNewGame(flag, name, platformSplited, genreSplited, date, image, storeSplited);
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
     setEditbtn(false);
@@ -261,6 +257,8 @@ function Home() {
     setImage(game.background_image);
     setPlatform(game.platforms);
     setGenre(game.genres);
+    setStore(game.stores);
+
 
     changeDisplay();
     setEditbtn(true);
@@ -319,14 +317,14 @@ function Home() {
         </select>
         <select
           className={styles.select}
-          value={selectedRating}
-          onChange={(ev) => setSelectedRating(ev.target.value)}
+          value={selectedStore}
+          onChange={(ev) => setSelectedStore(ev.target.value)}
         >
-          <option value="all">Ordenar por avaliação:</option>
+          <option value="all">Ordenar por loja:</option>
           <option value="all">Todas</option>
-          {uniqueRatings().map((rating) => (
-            <option key={rating} value={rating}>
-              {rating}
+          {uniqueStores().map((store) => (
+            <option key={store} value={store}>
+              {store}
             </option>
           ))}
         </select>
@@ -418,6 +416,16 @@ function Home() {
         }
         {
           url ? (URLInvalida(image) ? null : <ErrorMsg msg={"URL inválida"} />) : null
+        }
+        <h1>Lojas</h1>
+        <input
+          className={styles.nameinput}
+          type="text"
+          value={store}
+          onChange={(ev) => setStore(ev.target.value)}
+        />
+        {
+          msg ? (store == '' ? <ErrorMsg msg={"Preencha a loja"} /> : null) : null
         }
 
         {editbtn ? (

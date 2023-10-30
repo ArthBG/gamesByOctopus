@@ -15,7 +15,8 @@ export default class NewGameList {
       const released = game.released;
       const rating = game.rating; 
       const background_image = game.background_image;
-      const newGamev = new NewGame(id, name, platforms, genres, released, background_image, rating);
+      const stores = game.stores.map((store) => store.store.name);
+      const newGamev = new NewGame(id, name, platforms, genres, released, background_image, rating, stores);
       this.addNewGame(newGamev);
   })
 
@@ -35,6 +36,8 @@ export default class NewGameList {
   }
 
   addNewGame(newGame) {
+    console.log("Método de adicionar jogo");
+    console.log(newGame);
     this.games.push(newGame);
   }
 
@@ -54,7 +57,7 @@ export default class NewGameList {
     return this.games.find(game => game.id === id);
   }
 
-  updateNewGame(flag, name, platformSplited, genreSplited, date, image) {
+  updateNewGame(flag, name, platformSplited, genreSplited, date, image, stores) {
       const game = this.getNewGamePorId(flag);
       if(game) {
         game.name = name;
@@ -62,6 +65,7 @@ export default class NewGameList {
         game.genres = genreSplited;
         game.released = date;
         game.background_image = image;
+        game.stores = stores;
       }
 
       return game;

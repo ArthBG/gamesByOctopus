@@ -1,5 +1,5 @@
 export default class NewGame {
-    constructor(id, name, platforms, genres, released, background_image, rating) {
+    constructor(id, name, platforms, genres, released, background_image, rating, stores) {
         this.id = id;
         this.name = name;
         this.platforms = platforms;
@@ -7,6 +7,7 @@ export default class NewGame {
         this.released = released;
         this.background_image = background_image;
         this.rating = rating;
+        this.stores = stores;
         console.log(NewGame);
     }
     generateId() {
