@@ -29,6 +29,7 @@ const gameDescription = ({ params }) => {
                 <div className={styles.divrating}>
                     <p className={styles.rating}>{games.rating}</p>
                 </div>
+                </div>
 
 
                 <div className={styles.platformsContainer}>
@@ -38,17 +39,6 @@ const gameDescription = ({ params }) => {
                         ))
                     ) : null}
                 </div>
-
-    <TabPanel>
-      <h2>{Array.isArray(games.platforms) ? games.platforms.map((platform) => platform.platform.name).join(", ") : (games.platforms)}</h2>
-    </TabPanel>
-    <TabPanel>
-      <h2>{Array.isArray(games.genres) ? games.genres.map((genre) => genre.name).join(", ") : (games.genres)}</h2>
-    </TabPanel>
-  </Tabs>
-
-            </div>
-
             <div className={styles.descricao}>
                 <p className={styles.h2}>{games.name} Game</p>
                 <p className={styles.description}>{games.description_raw}</p>
@@ -69,6 +59,7 @@ const gameDescription = ({ params }) => {
             ) : null}
 
         </div>
+
     );
 };
 
