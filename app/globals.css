@@ -13,3 +13,10 @@ h2{
   font-size: 25px;
   color: #eae9e9;
 }
+
+.op{
+  -webkit-appearance:none;
+   -moz-appearance:none;
+   -ms-appearance:none;
+   appearance:none;
+}
