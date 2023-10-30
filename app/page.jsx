@@ -10,6 +10,7 @@ import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
 import ErrorMsg from './components/errormsg/ErrorMsg';
 import { ColorRing } from 'react-loader-spinner';
+import Header2 from './components/header2/page';
 // no terminal npm install react-loader-spinner --save
 
 const itemsPerPage = 10;
@@ -273,7 +274,12 @@ function Home() {
   }
   return (
     <main className={styles.main}>
+      <div className={styles.header}>
       <Header changeDisplay={changeDisplay} />
+      </div>
+      <div className={styles.header2}>
+      <Header2 />
+      </div>
       <div className={styles.container}>
         <h1>Games</h1>
         <div className={styles.divinput}>

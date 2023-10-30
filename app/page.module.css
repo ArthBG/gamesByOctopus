@@ -6,8 +6,6 @@
   font-size: 1.2rem;
 }
 
-
-
 .loader{
     align-items: center;
     text-align: center;
@@ -149,4 +147,56 @@
   outline: none;
   transition: background-color 0.3s;
   cursor: pointer;
+}
+.header2{
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .container {
+    margin: 0;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  .header2{
+    display: block;
+    width: 100%;
+  }
+  .header{
+    display: none;
+    
+  }
+  .tituloprincipal {
+    width: 90%;
+  }
+  .divinput {
+    width: 90%;
+  }
+  .select {
+    width: 100%;
+  }
+  .button {
+    width:100%;
+  }
+  .containerInputs {
+    max-width: 0%;
+  }
+  .containerInputs input[type="text"] {
+    width: 90%;
+  }
+  .containerInputs input[type="date"] {
+    width: 90%;
+  }
+  .containerInputs button {
+    width: 90%;
+  }
+  .containerGames{
+    width: 100%
+
+  }
+  .scrollbtn {
+    margin-right: 4%;
+  }
+
 }
