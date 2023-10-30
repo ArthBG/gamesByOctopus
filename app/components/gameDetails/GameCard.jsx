@@ -6,7 +6,15 @@ import { BiSolidEditAlt } from 'react-icons/bi';
 import Link from 'next/link';
 
 function GameCard({ game, removeGame, editGame }) {
-  
+
+  const FormatDatePTBR = (date) => {
+    const dateFormated = new Date(date);
+    const day = dateFormated.getDate();
+    const month = dateFormated.getMonth();
+    const year = dateFormated.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
   return (
     <div className={styles.card}>
       <div className={styles.imgcards}>
@@ -17,16 +25,16 @@ function GameCard({ game, removeGame, editGame }) {
         <h2 className={styles.title}>{game.name}</h2>
         <p className={styles.rating}>
           {game.rating ? game.rating : "Sem avaliação"}
-          </p>
+        </p>
         <p className={styles.released}>
-          {game.released ? game.released : "Sem data de lançamento"}
+          {game.released ? FormatDatePTBR(game.released) : "Sem data de lançamento"}
         </p>
         <p className={styles.genres}>
-  {Array.isArray(game.genres) ? game.genres.join(", ") : game.genres}
-</p>
-<p className={styles.platforms}>
-  {Array.isArray(game.platforms) ? game.platforms.join(", ") : game.platforms}
-</p> 
+          {Array.isArray(game.genres) ? game.genres.join(", ") : game.genres}
+        </p>
+        <p className={styles.platforms}>
+          {Array.isArray(game.platforms) ? game.platforms.join(", ") : game.platforms}
+        </p>
       </div>
       <div className={styles.contaierbuttons}>
         <button className={styles.button} value={game.name}>
