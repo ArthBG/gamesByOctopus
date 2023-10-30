@@ -10,6 +10,7 @@ import NewGame from '@/models/Jogo';
 import NewGameList from '@/models/JogoLista';
 import ErrorMsg from './components/errormsg/ErrorMsg';
 import { ColorRing } from 'react-loader-spinner';
+// no terminal npm install react-loader-spinner --save
 
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
