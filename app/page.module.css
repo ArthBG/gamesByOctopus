@@ -156,6 +156,8 @@
 
   .container {
     margin: 0;
+    overflow-x: hidden;
+    width: 100%;
   }
   .header2{
     display: block;
@@ -175,10 +177,10 @@
     width: 100%;
   }
   .button {
-    width:80%;
+    width:100%;
   }
   .containerInputs {
-    max-width: 90%;
+    max-width: 0%;
   }
   .containerInputs input[type="text"] {
     width: 90%;
@@ -190,10 +192,11 @@
     width: 90%;
   }
   .containerGames{
-    width: 100%;
+    width: 100%
+
   }
   .scrollbtn {
-    margin-left: 0; /* Remova a margem negativa */
+    margin-right: 4%;
   }
 
 }
