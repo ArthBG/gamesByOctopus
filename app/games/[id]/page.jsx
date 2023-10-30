@@ -107,7 +107,7 @@ const gameDescription = ({ params }) => {
 
       <div className={styles.button}>
         <Link href='/'>
-          <button className={styles.btn}>Voltar</button>
+          <button className={styles.btn}>Voltar para home</button>
         </Link>
 
       </div >

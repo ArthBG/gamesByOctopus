@@ -174,8 +174,8 @@
     left: 79.9%;
 
 }
-.button{
-    background-color: #007bff;
+ .btn{
+    background-color: #053a71;
     color: #fff;
     border-radius: 5px;
     padding: 5px 10px;
@@ -188,6 +188,9 @@
     display: inline-block;
     width: 7%;
     margin-bottom: 1%;
+    border: none;
+    margin-left: 48%;
+    align-items: center;
 }
 
 .h6h {
