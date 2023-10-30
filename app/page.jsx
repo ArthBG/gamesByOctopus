@@ -26,9 +26,8 @@ function Home() {
   const [newGameList, setNewGameList] = useState(gamelist.getGames());
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [selectedPlatform, setSelectedPlatform] = useState([]);
+  const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [selectedGenre, setSelectedGenre] = useState('all');
-  const [selectedRating, setSelectedRating] = useState('all');
   const [selectedStore, setSelectedStore] = useState('all');
   const [name, setname] = useState('');
   const [platform, setPlatform] = useState('');
@@ -39,6 +38,7 @@ function Home() {
   const lowerSearch = search.toLowerCase();
   const [allGames, setAllGames] = useState(null);
   const [HolyGames, setHolyGames] = useState([]);
+  const [selected, setSelected] = useState([]);
 
   function validation() {
     console.log(name, platform, genre, date, image)
@@ -65,7 +65,7 @@ function Home() {
     const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
     const storeSplited = typeof store === 'string' ? store.split(',') : [store];
     const rating = '';
-    const newGame = new NewGame(randomId, name, platformSplited, genreSplited, date, rating, image, storeSplited);
+    const newGame = new NewGame(randomId, name, platformSplited, genreSplited, date, image, rating, storeSplited);
     let indica = false;
     if (validation() == false) {
       setMsg(true)
@@ -148,26 +148,30 @@ function Home() {
     uniqueGenres();
     uniquePlatforms();
     uniqueStores();
-  }, [selectedPlatform, selectedGenre, selectedRating, selectedStore, gamelist]);
+  }, [selectedGenre, selectedPlatform, selectedRating, selectedStore]);
 
 
 
 
   const filterGames = () => {
     let filteredGames = newGameList;
+    
+
     if (selectedPlatform !== 'all') {
       filteredGames = filteredGames.filter((game) => {
         return game.platforms.includes(selectedPlatform);
       });
     }
-    if (selectedGenre !== 'all') {
-      filteredGames = filteredGames.filter((game) => {
-        return game.genres.includes(selectedGenre);
-      });
-    }
+    
     if (selectedStore !== 'all') {
       filteredGames = filteredGames.filter((game) => {
         return game.stores.includes(selectedStore);
+      });
+    }
+    
+    if (selectedGenre !== 'all') {
+      filteredGames = filteredGames.filter((game) => {
+        return game.genres.includes(selectedGenre);
       });
     }
     return filteredGames;
@@ -200,6 +204,8 @@ function Home() {
   };
 
   const uniqueStores = () => {
+    //setSelectedPlatform('Android');
+
     const allStores = gamelist.getGames().map((game) => {
       if (Array.isArray(game.stores)) {
         return game.stores;
@@ -234,6 +240,7 @@ function Home() {
     setPlatform('');
     setGenre('');
     setDate('');
+    setStore('');
     setImage('');
   }
 
@@ -275,10 +282,10 @@ function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.header}>
-      <Header changeDisplay={changeDisplay} />
+        <Header changeDisplay={changeDisplay} />
       </div>
       <div className={styles.header2}>
-      <Header2 />
+        <Header2 />
       </div>
       <div className={styles.container}>
         <h1 className={styles.tit}>OctoPlay</h1>
@@ -293,81 +300,78 @@ function Home() {
           <FiSearch onClick={handleSearch} />
         </div>
         <div className={styles.allselect}>
-        <select
-          className={styles.select}
-          value={selectedPlatform}
-          onChange={(ev) => setSelectedPlatform(ev.target.value)}
-        >
-          <option value="all" className={styles.op}>Filtre pela plataforma:</option>
-          <option value="all" className={styles.op}>Todas</option>
-          {
-            uniquePlatforms().map((platform) => (
-              <option key={platform} value={platform}>
-                {platform}
-              </option>
-            ))
-          }
+          <select
+            className={styles.select}
+            value={selectedPlatform}
+            onChange={(ev) => setSelectedPlatform(ev.target.value)}
+          >
+            <option value="all" className={styles.op}>Filtre pela plataforma:</option>
+            {
+              uniquePlatforms().map((platform) => (
+                <option key={platform} value={platform}>
+                  {platform}
+                </option>
+              ))
+            }
 
-        </select>
-        <select
-          className={styles.select}
-          value={selectedGenre}
-          onChange={(ev) => setSelectedGenre(ev.target.value)}
-        >
-          <option value="all" className={styles.op}>Ordenar por gênero:</option>
-          <option value="all" className={styles.op}>Todos</option>
-          {uniqueGenres().map((genre) => (
-            <option key={genre} value={genre}>
-              {genre}
-            </option>
-          ))}
-        </select>
-        <select
-          className={styles.select}
-          value={selectedStore}
-          onChange={(ev) => setSelectedStore(ev.target.value)}
-        >
-          <option value="all">Ordenar por loja:</option>
-          <option value="all">Todas</option>
-          {uniqueStores().map((store) => (
-            <option key={store} value={store}>
-              {store}
-            </option>
-          ))}
-        </select>
+          </select>
+          <select
+            className={styles.select}
+            value={selectedGenre}
+            onChange={(ev) => setSelectedGenre(ev.target.value)}
+          >
+            <option value="all" className={styles.op}>Ordenar por gênero:</option>
+            {uniqueGenres().map((genre) => (
+              <option key={genre} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+          <select
+            className={styles.select}
+            value={selectedStore}
+            onChange={(ev) => setSelectedStore(ev.target.value)}
+          >
+            <option value="all">Ordenar por loja:</option>
+            {uniqueStores().map((store) => (
+              <option key={store} value={store}>
+                {store}
+              </option>
+            ))}
+          </select>
         </div>
         <div className={styles.btnazul}>
-        <button className={styles.button} onClick={clearFilters}>
-          Redefinir Filtros
-        </button>
+          <button className={styles.button} onClick={clearFilters}>
+            Redefinir Filtros
+          </button>
         </div>
         <div className={styles.loaderdiv}>
-        {loading && (
-        <div className={styles.loader}>
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={['#1E90FF', '#0000FF', '#	000000', '#	2F4F4F', '#	B0E0E6']}
-          />
+          {loading && (
+            <div className={styles.loader}>
+              <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={['#1E90FF', '#0000FF', '#	000000', '#	2F4F4F', '#	B0E0E6']}
+              />
+            </div>
+          )}
         </div>
-      )}
-      </div>
         <div className={styles.containerGames} style={{ display: divGames ? 'block' : 'none' }} value={divGames}>
           <GameList games={HolyGames} removeGame={removeGames} editGame={editGame} />
         </div>
       </div>
       <div className={styles.scrollbtn}>
-          <button className={styles.btnscroll} onClick={upScroll}>
+        <button className={styles.btnscroll} onClick={upScroll}>
           <Image src='/setaredondacima.png' className={styles.setapcima} width={50} height={50}></Image>
-          </button>
-          <button className={styles.btnscrolls} onClick={downScroll}>
+        </button>
+        <button className={styles.btnscrolls} onClick={downScroll}>
           <Image src='/setaredondabaixo.png' className={styles.setapbaixo} width={50} height={50}></Image>
-          </button>
-        </div>   
+        </button>
+      </div>
 
       <div className={styles.containerInputs} style={{ display: divInput ? 'block' : 'none' }} value={divInput}>
         <h1>Nome do Jogo</h1>
