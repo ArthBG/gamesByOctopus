@@ -23,7 +23,7 @@
 .h1 {
     position: absolute;
     top: 70%;
-    left: 22%;
+    left: 20%;
     transform: translate(-50%, -50%);
     color: black;
     font-size: 30px;
@@ -76,7 +76,7 @@
 
 
 .h2 {
-    color: #fff;
+    color: black;
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -200,94 +200,8 @@
 
 
 @media screen and (max-width: 650px) {
-    .Header2 {
-        display: block;
-        width: 100%;
-        color: white;
-    }
 
-    .container {
-        background-color: white;
-        margin: 0 auto;
-        overflow-x: hidden;
-
-    }
-
-
-    .header {
-        display: none;
-    }
-
-    .gameThumb {
-        width: 100%;
-        margin-left: -6%;
-        height: auto;
-    }
-
-
-    .released {
-        display: none;
-    }
-
-
-
-    .divrating {
-        margin-top: 9%;
-        height: auto;
-        left: 80%;
-    }
-
-    .data {
-        margin-bottom: -90%;
-        left: 10%;
-        text-align: center;
-
-    }
-
-    .h6g {
-        font-size: 16px;
-        margin-left: 0;
-        color: black;
-    }
-
-    .platformsContainer {
-        width: 100%;
-        left: -3%;
-    }
-
-    .descricao {
-        text-align: justify;
-        width: 100%;
-        margin: 0;
-    }
-
-    .h6 {
-        margin-left: 0;
-    }
-
-    .h3 {
-        display: none;
-    }
-
-    .genrediv {
-        margin-left: 0;
-        margin-top: 0;
-        width: 100%;
-        text-align: center;
-
-
-    }
-
-    .h6h {
-        margin-left: 0;
-    }
-
-    .devs {
-        margin-left: 0;
-
-    }
-
-
+ 
     .header2 {
         display: block;
         width: 100%;
@@ -322,38 +236,48 @@
 
     .gameThumb {
         border: solid 2px rgb(47, 47, 47);
-        border-radius: 3px;
-        position: relative;
         width: 100%;
+        margin-left: -6%;
         height: auto;
+
 
     }
 
     .h1 {
         position: absolute;
         top: 70%;
-        left: 32%;
+        left: 29%;
         transform: translate(-50%, -50%);
         color: black;
         font-size: 14px;
-        margin-bottom: 10px;
-        font-weight: bold;
-        background-color: #e9ec32;
-        padding: 5px 10px;
-        border-radius: 5px;
         cursor: pointer;
-        transition-duration: 0.4s;
     }
 
+    .released {
+        color: black;
+        margin-left:0 ;
+    }
 
-    .divrating {
-        position: absolute;
-        top: 90%;
-        background-color: #ffcc00;
-        display: block;
-        padding: 5px 10px;
-        border-radius: 5px;
-        left: 88%;
+    .h3 {
+        margin-left: 0;
+        margin-top: 10%;
+
+    }
+    .genres{
+        margin-left: 0;
+    }
+    .h6g {
+        font-size: 20px;
+        left: 0;
+        color: black;
+        margin-top:6% ;
+    }
+
+     .divrating {
+
+        margin-top: 9%;
+        height: auto;
+        left: 80%;
 
     }
 
@@ -368,6 +292,13 @@
 
     .genrediv {
         width: 90%;
-        margin-left: 0;
+        margin-left: 10%;
+
+    }
+    .developers{
+       display: none;
+    }
+    .h6h{
+        display: none;
     }
 }
