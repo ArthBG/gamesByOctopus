@@ -150,3 +150,44 @@
   transition: background-color 0.3s;
   cursor: pointer;
 }
+.header2{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 0;
+  }
+  .header2{
+    display: block;
+  }
+  .header{
+    display: none;
+    width: 70%;
+  }
+  .tituloprincipal {
+    width: 90%;
+  }
+  .divinput {
+    width: 90%;
+  }
+  .select {
+    width: 90%;
+  }
+  .button {
+    width:100%;
+  }
+  .containerInputs {
+    max-width: 90%;
+  }
+  .containerInputs input[type="text"] {
+    width: 90%;
+  }
+  .containerInputs input[type="date"] {
+    width: 90%;
+  }
+  .containerInputs button {
+    width: 90%;
+  }
+
+}
