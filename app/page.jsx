@@ -287,7 +287,7 @@ function Home() {
       <div className={styles.header2}>
       <Header2 changeDisplay={changeDisplay} />
       </div>
-      <div className={styles.container}>
+      <div className={styles.container} style={{ display: divGames ? 'block' : 'none' }} value={divGames}>
         <h1 className={styles.tit}>OctoPlay</h1>
         <div className={styles.divinput}>
           <input
@@ -360,7 +360,7 @@ function Home() {
             </div>
           )}
         </div>
-        <div className={styles.containerGames} style={{ display: divGames ? 'block' : 'none' }} value={divGames}>
+        <div className={styles.containerGames} >
           <GameList games={HolyGames} removeGame={removeGames} editGame={editGame} />
         </div>
       </div>
@@ -441,6 +441,9 @@ function Home() {
         {
           msg ? (store == '' ? <ErrorMsg msg={"Preencha a loja"} /> : null) : null
         }
+        <button className={styles.button111} onClick={changeDisplay}>
+          Voltar
+        </button>
 
         {editbtn ? (
           <div className={styles.editcontainer}>

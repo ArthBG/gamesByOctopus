@@ -81,14 +81,25 @@
   margin: 1rem 0;
   text-align: center;
 }
+.button111{
+  background-color: #0070f3;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin: 1rem;
+  text-align: center;
+
+}
 
 /* Estilos gerais para o container */
 .containerInputs {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 400px;
   margin: 0 auto;
+  margin-top: 2rem;
+  max-width: 400px;
 }
 
 /* Estilos para os títulos */
