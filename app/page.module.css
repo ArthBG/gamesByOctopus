@@ -5,10 +5,10 @@
   font-size: 1.2rem;
 }
 
-.loader{
-    align-items: center;
-    text-align: center;
-    margin-top: 15rem; 
+.loader {
+  align-items: center;
+  text-align: center;
+  margin-top: 15rem;
 
 }
 
@@ -227,8 +227,16 @@
   pointer-events: none;
 }
 
-.header2{
+.header2 {
   display: none;
+}
+
+.tit {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 40px;
+  margin-top: 2rem;
+
 }
 
 @media (max-width: 768px) {
@@ -238,42 +246,53 @@
     overflow-x: hidden;
     width: 100%;
   }
-  .header2{
+
+  .header2 {
     display: block;
     width: 100%;
   }
-  .header{
+
+  .header {
     display: none;
-    
+
   }
+
   .tituloprincipal {
     width: 90%;
   }
+
   .divinput {
     width: 90%;
   }
+
   .select {
     width: 100%;
   }
+
   .button {
-    width:100%;
+    width: 100%;
   }
+
   .containerInputs {
     max-width: 0%;
   }
+
   .containerInputs input[type="text"] {
     width: 90%;
   }
+
   .containerInputs input[type="date"] {
     width: 90%;
   }
+
   .containerInputs button {
     width: 90%;
   }
-  .containerGames{
-    width: 100%
 
+  .containerGames {
+    width: 100%
   }
+
   .scrollbtn {
     margin-right: 4%;
   }
