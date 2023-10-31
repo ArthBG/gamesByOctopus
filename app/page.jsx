@@ -148,7 +148,7 @@ function Home() {
     uniqueGenres();
     uniquePlatforms();
     uniqueStores();
-  }, [selectedGenre, selectedPlatform, selectedRating, selectedStore]);
+  }, [selectedGenre, selectedPlatform, selectedStore]);
 
 
 
