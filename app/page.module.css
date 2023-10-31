@@ -63,6 +63,13 @@
 .container {
   margin-left: 5rem;
 }
+.btnazul{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 1.5rem;
+}
 
 .button {
   background-color: #0070f3;
@@ -73,16 +80,26 @@
   cursor: pointer;
   margin: 1rem 0;
   text-align: center;
-  margin-left: 42.5rem;
+}
+.button111{
+  background-color: #0070f3;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin: 1rem;
+  text-align: center;
+
 }
 
 /* Estilos gerais para o container */
 .containerInputs {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 400px;
   margin: 0 auto;
+  margin-top: 2rem;
+  max-width: 400px;
 }
 
 /* Estilos para os títulos */
@@ -155,6 +172,28 @@
 
 .allselect select {
   margin: 0 3.5rem;
+}
+
+.op{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  -ms-appearance:none;
+  appearance:none;
+  outline:0;
+  box-shadow:none;
+  border:0!important ;
+  background: #ffffff;
+  background-image: none;
+  flex: 1;
+  padding: 0 .5em;
+  color:#8e8e8e;
+  cursor:pointer;
+  font-size: 16px;
+}
+
+.op:hover{
+  color: #0055CC;
 }
 
 .allselect select {
@@ -257,6 +296,29 @@
   .scrollbtn {
     margin-right: 4%;
   }
+
+  .button11{
+    width: 100%;
+  }
+
+  .nameinput{
+    width: 90%;
+  }
+  .containerInputs {
+    max-width: 100%;
+    margin-left: 17%;
+  
+  }
+  .allselect select {
+    width: 100%;
+    margin:auto;
+
+  }
+
+
+  
+  
+
 
 
 }

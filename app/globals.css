@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 h1{
   font-size: 3rem;
@@ -11,4 +12,11 @@ h1{
 h2{
   font-size: 25px;
   color: #eae9e9;
+}
+
+.op{
+  -webkit-appearance:none;
+   -moz-appearance:none;
+   -ms-appearance:none;
+   appearance:none;
 }

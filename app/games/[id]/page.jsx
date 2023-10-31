@@ -3,6 +3,7 @@ import { fetchApiDetails } from '@/data/apiconsumer';
 import React, { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import Header from '@/app/components/header/header';
+import Header2 from '@/app/components/header2/page';
 
 
 const gameDescription = ({ params }) => {
@@ -22,7 +23,14 @@ const gameDescription = ({ params }) => {
 
     return (
         <div className={styles.container}>
-         {/*    <Header /> */}
+            <div className={styles.header}>
+                <Header/>
+            </div>
+            <div className={styles.header2}>
+                <Header2/>
+            </div>
+
+         
             <div className={styles.imageContainer}>
                 <img className={styles.gameThumb} src={games.background_image} alt={games.name} height={540} width={1200} />
                 <h1 className={styles.h1}>{games.name}</h1>
