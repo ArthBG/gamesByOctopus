@@ -288,7 +288,10 @@ function Home() {
       <Header2 changeDisplay={changeDisplay} />
       </div>
       <div className={styles.container} style={{ display: divGames ? 'block' : 'none' }} value={divGames}>
-        <h1 className={styles.tit}>OctoPlay</h1>
+        <div className={styles.logoOctopus}>
+        <Image src='/LOGO-octopusBlack.png' width={150} height={130}></Image>
+        <h1 className={styles.tituloprincipal}>OctoPlay</h1>
+        </div>
         <div className={styles.divinput}>
           <input
             className={styles.searchInput}

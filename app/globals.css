@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Geologica', sans-serif;
   scroll-behavior: smooth;
 }
 h1{
