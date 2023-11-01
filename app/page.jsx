@@ -114,7 +114,7 @@ function Home() {
 
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 30) {
+        while (allGameData.length < 1000) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
@@ -182,13 +182,24 @@ function Home() {
     for (let i = 1; i <= Math.ceil(newGameList.length / itemsPerPage); i++) {
       pageNumbers.push(i);
     }
-    return pageNumbers.map((number) => (
-      <div key={number} className={styles.paginatediv}>
-        <button className={styles.paginationBtn} onClick={() => setPage(number)} >
+    //quero que exiba os 2 primeiros e os 2 ultimos
+    const firstPages = pageNumbers.slice(0, 2);
+    const lastPages = pageNumbers.slice(-2);
+    const middlePages = pageNumbers.slice(page - 1, page + 1);
+    const allPages = [...firstPages, ...middlePages, ...lastPages];
+    const uniquePages = [...new Set(allPages)];
+    return uniquePages.map((number) => {
+      return (
+        <button
+          key={number}
+          className={styles.pagesbtn}
+          onClick={() => setPage(number)}
+        >
           {number}
         </button>
-      </div>
-    ));
+      );
+    });
+  
   };
   const filterGames = () => {
     let filteredGames = newGameList;
