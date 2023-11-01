@@ -15,7 +15,9 @@ h2{
   font-size: 25px;
   color: #eae9e9;
 }
-
+button{
+  cursor: pointer;
+}
 .op{
   -webkit-appearance:none;
    -moz-appearance:none;

@@ -1,33 +1,35 @@
 .main {
-  position: relative; 
+  position: relative;
   background-image: url(../public/bg-white.jpg);
   border-radius: 5px;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
 }
 
 
-.loader{
-    align-items: center;
-    text-align: center;
-    margin-top: 15rem; 
-
+.loader {
+  align-items: center;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .scrollbtn {
   position: fixed;
-  top: 75%;
+  bottom: 2rem;
   right: 0;
-  width: 50px;
-  height: 50px;
+  margin-right: 0.5rem;
+}
+.icons{
+  cursor: pointer;
+}
+.icons:hover{
+  color: #3c97ff;
   background-color: transparent;
 }
+.pagesbtn:hover {
+  transform: scale(1.1);
 
-.pagesbuttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 1rem;
+  background-color: #0055CC;
 }
 
 .searchInput {
@@ -42,6 +44,7 @@
   color: #0070f3;
   font-size: 3rem;
   text-align: center;
+  margin: 2rem;
 }
 
 .divinput {
@@ -52,22 +55,56 @@
   align-items: center;
   justify-content: center;
   background-color: white;
-
+  
 }
-.logoOctopus{
-  margin: auto;
+
+.logoOctopus {
   text-align: center;
 }
 
 .container {
   margin-left: 5rem;
 }
-.btnazul{
+
+.btnazul {
   text-align: center;
   align-items: center;
   justify-content: center;
   text-align: center;
   margin: 1.5rem;
+}
+
+
+
+.pagesbtn {
+  background-color: #0070f3;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 1rem;
+
+}
+
+.pagesbtn:hover {
+  transform: scale(1.1);
+  background-color: #0055CC;
+}
+
+.paginationBtn {
+  background-color: #0070f3;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  margin-top: 3rem;
+  border: none;
+  border-radius: 1rem;
+
+}
+
+.paginationBtn:hover {
+  transform: scale(1.1);
+  background-color: #0055CC;
 }
 
 .button {
@@ -80,7 +117,24 @@
   margin: 1rem 0;
   text-align: center;
 }
-.button111{
+
+.button:hover {
+  transform: scale(1.1);
+  background-color: #0055CC;
+}
+
+.paginatediv {
+  align-items: center;
+  text-align: center;
+}
+
+.paginate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button111 {
   background-color: #0070f3;
   color: #fff;
   padding: 0.5rem 1rem;
@@ -153,14 +207,6 @@
   cursor: pointer;
 }
 
-.btnscrolls {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  transition: background-color 0.3s;
-  cursor: pointer;
-}
-
 .allselect {
   display: flex;
   justify-content: center;
@@ -173,25 +219,25 @@
   margin: 0 3.5rem;
 }
 
-.op{
+.op {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  -ms-appearance:none;
-  appearance:none;
-  outline:0;
-  box-shadow:none;
-  border:0!important ;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
   background: #ffffff;
   background-image: none;
   flex: 1;
   padding: 0 .5em;
-  color:#8e8e8e;
-  cursor:pointer;
+  color: #8e8e8e;
+  cursor: pointer;
   font-size: 16px;
 }
 
-.op:hover{
+.op:hover {
   color: #0055CC;
 }
 
@@ -226,7 +272,7 @@
   pointer-events: none;
 }
 
-.header2{
+.header2 {
   display: none;
 }
 
@@ -237,67 +283,80 @@
     overflow-x: hidden;
     width: 100%;
   }
-  .header2{
+
+  .header2 {
     display: block;
     width: 100%;
   }
-  .header{
+
+  .header {
     display: none;
-    
+
   }
+
   .tituloprincipal {
     width: 90%;
   }
+
   .divinput {
     width: 90%;
   }
+
   .select {
     width: 100%;
   }
+
   .button {
-    width:100%;
+    width: 100%;
   }
+
   .containerInputs {
     max-width: 0%;
   }
+
   .containerInputs input[type="text"] {
     width: 90%;
   }
+
   .containerInputs input[type="date"] {
     width: 90%;
   }
+
   .containerInputs button {
     width: 90%;
   }
-  .containerGames{
-    width: 100%
 
+  .containerGames {
+    width: 100%
   }
+
   .scrollbtn {
     margin-right: 4%;
   }
 
-  .button11{
+  .button11 {
     width: 100%;
   }
 
-  .nameinput{
+  .nameinput {
     width: 90%;
   }
+
   .containerInputs {
     max-width: 100%;
     margin-left: 17%;
-  
+
   }
+
   .allselect select {
     width: 100%;
-    margin:auto;
+    margin: auto;
 
   }
 
 
-  
-  
+
+
 
 
 
