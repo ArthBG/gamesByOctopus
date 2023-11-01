@@ -4,13 +4,12 @@ export default class NewGameList {
     this.games = [];
   }
 
+  // add games to the list
   demonMethod(lista) {
     lista.map((game) => {
       const id = game.id;
       const name = game.name;
       const platforms = game.parent_platforms.map((platform) => platform.platform.name);
-      console.log("PLataformas");
-      console.log(platforms);
       const genres = game.genres.map((genre) => genre.name);
       const released = game.released;
       const rating = game.rating; 
@@ -19,8 +18,6 @@ export default class NewGameList {
       const newGamev = new NewGame(id, name, platforms, genres, released, background_image, rating, stores);
       this.addNewGame(newGamev);
   })
-
-    console.log(this.games);  
 
     this.angelMethod();
 
@@ -37,16 +34,11 @@ export default class NewGameList {
 
   addNewGame(newGame) {
     console.log("Método de adicionar jogo");
-    console.log(newGame);
     this.games.push(newGame);
   }
 
   removeGame(id) {
-    const game = this.getNewGamePorId(id);
-    console.log(game);
     this.games = this.games.filter(game => game.id !== id);
-    console.log(this.games);
-    return this.games;
   }
 
   getGames() {

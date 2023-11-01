@@ -8,7 +8,6 @@ export default class NewGame {
         this.background_image = background_image;
         this.rating = rating;
         this.stores = stores;
-        console.log(NewGame);
     }
     generateId() {
         return Math.floor(Math.random() * 100000);
