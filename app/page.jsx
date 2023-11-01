@@ -148,8 +148,19 @@ function Home() {
 
   useEffect(() => {
     const filteredGames = filterGames();
+    const searchedGames = handleSearch();
+    const indexOfLastItem = page * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const visibleGames = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
+    const searchedVisibleGames = searchedGames.slice(indexOfFirstItem, indexOfLastItem);
+    if(searchedGames.length > 0){
+      setHolyGames(searchedVisibleGames);
+    }else{
+      setHolyGames(visibleGames);
+    }
 
-  }, [page, selectedPlatform, selectedGenre, selectedStore]);
+
+  }, [selectedPlatform, selectedGenre, selectedStore, HolyGames]);
 
   const nextPage = () => {
     if (page >= newGameList.length / itemsPerPage) {
