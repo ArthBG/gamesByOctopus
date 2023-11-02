@@ -304,13 +304,10 @@
 
     }
 
-    .genres {
-        margin-left: 0;
-    }
 
     .h6g {
         font-size: 20px;
-        left: 0;
+        margin-left: 0;
         color: black;
         margin-top: 6%;
     }
@@ -327,32 +324,52 @@
         font-weight: bold;
     }
 
-    .genres {
-        width: 100%;
-    }
-
     .genrediv {
-        width: 90%;
-        margin-left: 10%;
-
+        width: 20%;
+        align-items: center;
+        text-align: center;
+        margin-left: 0;
     }
 
-    .h5age,
+  /*   .h5age,
     .faixa,
     .h6h,
     .developers {
-        font-size: 16px; /* Reduza o tamanho da fonte para telas menores */
+        font-size: 16px;
     }
 
     .faixa,
     .h5age {
         margin-top: 10px;
-        margin-left: 0; /* Coloque a classificação etária e a faixa sob a descrição */
-    }
+        margin-left: 0;
+    } */
 
-    .h6h,
+   /*  .h6h,
     .developers {
         margin-top: 10px;
-        margin-left: 0; /* Coloque o desenvolvedor sob a descrição */
+        margin-left: 0;
+    } */
+
+
+    .h5age {
+       /*  position: absolute;
+        top: 98%;
+        left: 50%;
+        margin-top: 0; */
+        display: none;
     }
+    .h6h{
+ /*        position: absolute;
+        top: 98%;
+        left: 50%;
+        margin-top: 0; */
+        display: none;
+    }
+    .age{
+        display: none;
+    }
+    .devs{
+        display: none;
+    }
+  
 }
