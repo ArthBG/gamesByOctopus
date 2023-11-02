@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { API_KEY } from './APIKEY';
 
 export const fetchApi = async (page) => {
-    const URL_API = `https://api.rawg.io/api/games?key=219af9c69fd8413cb6d8e15b6471d74a&page=${page}`;
+    const URL_API = `https://api.rawg.io/api/games?key=${API_KEY}&page=${page}`;
 
     try {
         const resposta = await axios.get(URL_API);
@@ -15,7 +16,7 @@ export const fetchApi = async (page) => {
 
 export const fetchApiDetails = async (id) => {
     try {
-        const resposta = await axios.get(`https://api.rawg.io/api/games/${id}?key=219af9c69fd8413cb6d8e15b6471d74a`);
+        const resposta = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
         return resposta.data;
     }
 
