@@ -19,7 +19,7 @@ function GameCard({ game, removeGame, editGame }) {
     <div className={styles.card}>
       <div className={styles.imgcards}>
         <img className={styles.gameThumb} src={game.background_image ? game.background_image : game.background_image} alt={game.name} />
-        <Link className={styles.seeMore} href={`../../games/${game.id}`}>Veja Mais</Link>
+        <Link className={styles.seeMore} href={`../../games/${game.id}`} target='blank'>Veja Mais</Link>
       </div>
       <div className={styles.cardInfo}>
         <h2 className={styles.title}>{game.name}</h2>

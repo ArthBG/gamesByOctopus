@@ -1,9 +1,9 @@
 "use client";
 import GameCard from './GameCard';
 import styles from './GameList.module.css';
+import Link from 'next/link';
 
 function GameList({ games, removeGame, editGame }) {
-  console.log(games);
   return (
     <div className={styles.cardWrap}>
       {games.map((game) => (
