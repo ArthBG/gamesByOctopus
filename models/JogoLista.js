@@ -59,7 +59,6 @@ export default class NewGameList {
         game.background_image = image;
         game.stores = stores;
       }
-
       return game;
     
   }

@@ -12,8 +12,7 @@ import NewGameList from '@/models/JogoLista';
 import ErrorMsg from './components/errormsg/ErrorMsg';
 import { ColorRing } from 'react-loader-spinner';
 import Header2 from './components/header2/page';
-import { IoIosArrowUp } from 'react-icons/io';
-import { IoIosArrowDown } from 'react-icons/io';
+import ScrollButton from './components/scrollbutton/ScrollButton';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
 // no terminal npm install react-loader-spinner --save , npm install react-icons --save, npm install next/image --save, npm install
@@ -114,7 +113,7 @@ function Home() {
 
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 1000) {
+        while (allGameData.length < 50) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
@@ -149,18 +148,22 @@ function Home() {
   useEffect(() => {
     const filteredGames = filterGames();
     const searchedGames = handleSearch();
+  
+    // Calcular o índice dos primeiros e últimos itens na página
     const indexOfLastItem = page * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const visibleGames = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
+  
+    // Selecionar os jogos visíveis com base nas páginas a partir dos jogos pesquisados
     const searchedVisibleGames = searchedGames.slice(indexOfFirstItem, indexOfLastItem);
-    if(searchedGames.length > 0){
+  
+    // Se houver jogos pesquisados, defina HolyGames para esses jogos, caso contrário, use os jogos filtrados
+    if (searchedVisibleGames.length > 0) {
       setHolyGames(searchedVisibleGames);
-    }else{
+    } else {
+      const visibleGames = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
       setHolyGames(visibleGames);
     }
-
-
-  }, [selectedPlatform, selectedGenre, selectedStore, HolyGames]);
+  }, [selectedPlatform, selectedGenre, selectedStore, HolyGames, page]);
 
   const nextPage = () => {
     if (page >= newGameList.length / itemsPerPage) {
@@ -226,13 +229,14 @@ function Home() {
 
   }
   const handleSearch = () => {
-    const filterGames = gamelist.getGames().filter((game) => {
+    const filteredGames = filterGames();
+  
+    const filterSearchedGames = filteredGames.filter((game) => {
       return game.name.toLowerCase().includes(lowerSearch);
     });
-    setHolyGames(filterGames);
-    return filterGames;
+  
+    return filterSearchedGames;
   };
-
 
   const uniqueGenres = () => {
     const allGenres = gamelist.getGames().map((game) => {
@@ -292,8 +296,8 @@ function Home() {
     setDate('');
     setStore('');
     setImage('');
-  }
-
+  }  
+  
 
 
   const updateGame = () => {
@@ -301,6 +305,8 @@ function Home() {
     const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
     const storeSplited = typeof store === 'string' ? store.split(',') : [store];
     gamelist.updateNewGame(flag, name, platformSplited, genreSplited, date, image, storeSplited);
+    console.log('entrou no update');
+    console.log(gamelist.getGames());
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
     setEditbtn(false);
@@ -427,22 +433,9 @@ function Home() {
           </div>
         </div>
       </div>
-
-      {
-        window.scrollY > 200 ? (
-          <div className={styles.scrollbtn} onClick={() => window.scrollTo(0, 0)}>
-            <IoIosArrowUp className={styles.icons} />
-          </div>
-        ) : (
-          <div className={styles.scrollbtn} onClick={() => window.scrollTo(0, 100000)}>
-            <IoIosArrowDown className={styles.icons} />
-          </div>
-        )
-      }
-
-
-
-
+      <div className={styles.scrollbtn}>
+        <ScrollButton />
+      </div>
       <div className={styles.containerInputs} style={{ display: divInput ? 'block' : 'none' }} value={divInput}>
         <h1>Nome do Jogo</h1>
         <input
