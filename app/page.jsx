@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FiSearch } from 'react-icons/fi';
 import { fetchAsyncGames } from '@/data/gamedata';
 import styles from './page.module.css';
@@ -11,7 +12,10 @@ import NewGameList from '@/models/JogoLista';
 import ErrorMsg from './components/errormsg/ErrorMsg';
 import { ColorRing } from 'react-loader-spinner';
 import Header2 from './components/header2/page';
-// no terminal npm install react-loader-spinner --save
+import ScrollButton from './components/scrollbutton/ScrollButton';
+import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
+// no terminal npm install react-loader-spinner --save , npm install react-icons --save, npm install next/image --save, npm install
 
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
@@ -26,9 +30,8 @@ function Home() {
   const [newGameList, setNewGameList] = useState(gamelist.getGames());
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [selectedPlatform, setSelectedPlatform] = useState([]);
+  const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [selectedGenre, setSelectedGenre] = useState('all');
-  const [selectedRating, setSelectedRating] = useState('all');
   const [selectedStore, setSelectedStore] = useState('all');
   const [name, setname] = useState('');
   const [platform, setPlatform] = useState('');
@@ -41,7 +44,6 @@ function Home() {
   const [HolyGames, setHolyGames] = useState([]);
 
   function validation() {
-    console.log(name, platform, genre, date, image)
     if (name == '' || platform == '' || genre == '' || date == '' || image == '') {
       return false;
     } else {
@@ -65,7 +67,7 @@ function Home() {
     const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
     const storeSplited = typeof store === 'string' ? store.split(',') : [store];
     const rating = '';
-    const newGame = new NewGame(randomId, name, platformSplited, genreSplited, date, rating, image, storeSplited);
+    const newGame = new NewGame(randomId, name, platformSplited, genreSplited, date, image, rating, storeSplited);
     let indica = false;
     if (validation() == false) {
       setMsg(true)
@@ -103,6 +105,7 @@ function Home() {
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
   }
+
   useEffect(() => {
     const fetchAllGames = async () => {
       try {
@@ -110,7 +113,7 @@ function Home() {
 
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 100) {
+        while (allGameData.length < 50) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
@@ -144,36 +147,96 @@ function Home() {
 
   useEffect(() => {
     const filteredGames = filterGames();
-    setHolyGames(filteredGames);
-    uniqueGenres();
-    uniquePlatforms();
-    uniqueStores();
-  }, [selectedPlatform, selectedGenre, selectedRating, selectedStore, gamelist]);
+    const searchedGames = handleSearch();
+  
+    // Calcular o índice dos primeiros e últimos itens na página
+    const indexOfLastItem = page * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  
+    // Selecionar os jogos visíveis com base nas páginas a partir dos jogos pesquisados
+    const searchedVisibleGames = searchedGames.slice(indexOfFirstItem, indexOfLastItem);
+  
+    // Se houver jogos pesquisados, defina HolyGames para esses jogos, caso contrário, use os jogos filtrados
+    if (searchedVisibleGames.length > 0) {
+      setHolyGames(searchedVisibleGames);
+    } else {
+      const visibleGames = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
+      setHolyGames(visibleGames);
+    }
+  }, [selectedPlatform, selectedGenre, selectedStore, HolyGames, page]);
 
+  const nextPage = () => {
+    if (page >= newGameList.length / itemsPerPage) {
+      return;
+    }
+    setPage(page + 1);
+  };
 
+  const previousPage = () => {
+    if (page <= 1) {
+      return;
+    }
+    setPage(page - 1);
+  };
 
-
+  const paginate = () => {
+    const pageNumbers = [];
+    // math.ceil arredonda o numero para cima
+    for (let i = 1; i <= Math.ceil(newGameList.length / itemsPerPage); i++) {
+      pageNumbers.push(i);
+    }
+    //quero que exiba os 2 primeiros e os 2 ultimos
+    const firstPages = pageNumbers.slice(0, 2);
+    const lastPages = pageNumbers.slice(-2);
+    const middlePages = pageNumbers.slice(page - 1, page + 1);
+    const allPages = [...firstPages, ...middlePages, ...lastPages];
+    const uniquePages = [...new Set(allPages)];
+    return uniquePages.map((number) => {
+      return (
+        <button
+          key={number}
+          className={styles.pagesbtn}
+          onClick={() => setPage(number)}
+        >
+          {number}
+        </button>
+      );
+    });
+  
+  };
   const filterGames = () => {
     let filteredGames = newGameList;
+
+
     if (selectedPlatform !== 'all') {
       filteredGames = filteredGames.filter((game) => {
         return game.platforms.includes(selectedPlatform);
       });
     }
-    if (selectedGenre !== 'all') {
-      filteredGames = filteredGames.filter((game) => {
-        return game.genres.includes(selectedGenre);
-      });
-    }
+
     if (selectedStore !== 'all') {
       filteredGames = filteredGames.filter((game) => {
         return game.stores.includes(selectedStore);
       });
     }
+
+    if (selectedGenre !== 'all') {
+      filteredGames = filteredGames.filter((game) => {
+        return game.genres.includes(selectedGenre);
+      });
+    }
     return filteredGames;
 
   }
-
+  const handleSearch = () => {
+    const filteredGames = filterGames();
+  
+    const filterSearchedGames = filteredGames.filter((game) => {
+      return game.name.toLowerCase().includes(lowerSearch);
+    });
+  
+    return filterSearchedGames;
+  };
 
   const uniqueGenres = () => {
     const allGenres = gamelist.getGames().map((game) => {
@@ -200,6 +263,8 @@ function Home() {
   };
 
   const uniqueStores = () => {
+    //setSelectedPlatform('Android');
+
     const allStores = gamelist.getGames().map((game) => {
       if (Array.isArray(game.stores)) {
         return game.stores;
@@ -210,12 +275,7 @@ function Home() {
     const uniqueStores = [...new Set(flatStores.sort())];
     return uniqueStores;
   }
-  const handleSearch = () => {
-    const filterGames = gamelist.getGames().filter((game) => {
-      return game.name.toLowerCase().includes(lowerSearch);
-    });
-    setHolyGames(filterGames);
-  };
+
   const changeDisplay = () => {
     setDivGames(!divGames);
     setDivInput(!divInput);
@@ -234,9 +294,10 @@ function Home() {
     setPlatform('');
     setGenre('');
     setDate('');
+    setStore('');
     setImage('');
-  }
-
+  }  
+  
 
 
   const updateGame = () => {
@@ -244,6 +305,8 @@ function Home() {
     const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
     const storeSplited = typeof store === 'string' ? store.split(',') : [store];
     gamelist.updateNewGame(flag, name, platformSplited, genreSplited, date, image, storeSplited);
+    console.log('entrou no update');
+    console.log(gamelist.getGames());
     setNewGameList(gamelist.getGames());
     setHolyGames(gamelist.getGames());
     setEditbtn(false);
@@ -266,22 +329,19 @@ function Home() {
     setFlag(id);
   }
 
-  const upScroll = () => {
-    window.scrollTo(0, 0);
-  }
-  const downScroll = () => {
-    window.scrollTo(0, 100000);
-  }
   return (
     <main className={styles.main}>
       <div className={styles.header}>
-      <Header changeDisplay={changeDisplay} />
+        <Header changeDisplay={changeDisplay} />
       </div>
       <div className={styles.header2}>
-      <Header2 />
+        <Header2 changeDisplay={changeDisplay} />
       </div>
-      <div className={styles.container}>
-        <h1 className={styles.tit}>OctoPlay</h1>
+      <div className={styles.container} style={{ display: divGames ? 'block' : 'none' }} value={divGames}>
+        <div className={styles.logoOctopus}>
+          {/* <Image src='/LOGO-octopusBlack.png' width={150} height={130}></Image> */}
+          <h1 className={styles.tituloprincipal}>OctoPlay</h1>
+        </div>
         <div className={styles.divinput}>
           <input
             className={styles.searchInput}
@@ -293,82 +353,89 @@ function Home() {
           <FiSearch onClick={handleSearch} />
         </div>
         <div className={styles.allselect}>
-        <select
-          className={styles.select}
-          value={selectedPlatform}
-          onChange={(ev) => setSelectedPlatform(ev.target.value)}
-        >
-          <option value="all" className={styles.op}>Filtre pela plataforma:</option>
-          <option value="all" className={styles.op}>Todas</option>
-          {
-            uniquePlatforms().map((platform) => (
-              <option key={platform} value={platform}>
-                {platform}
-              </option>
-            ))
-          }
+          <select
+            className={styles.select}
+            value={selectedPlatform}
+            onChange={(ev) => setSelectedPlatform(ev.target.value)}
+          >
+            <option value="all" className={styles.op}>Filtre pela plataforma:</option>
+            {
+              uniquePlatforms().map((platform) => (
+                <option key={platform} value={platform}>
+                  {platform}
+                </option>
+              ))
+            }
 
-        </select>
-        <select
-          className={styles.select}
-          value={selectedGenre}
-          onChange={(ev) => setSelectedGenre(ev.target.value)}
-        >
-          <option value="all" className={styles.op}>Ordenar por gênero:</option>
-          <option value="all" className={styles.op}>Todos</option>
-          {uniqueGenres().map((genre) => (
-            <option key={genre} value={genre}>
-              {genre}
-            </option>
-          ))}
-        </select>
-        <select
-          className={styles.select}
-          value={selectedStore}
-          onChange={(ev) => setSelectedStore(ev.target.value)}
-        >
-          <option value="all">Ordenar por loja:</option>
-          <option value="all">Todas</option>
-          {uniqueStores().map((store) => (
-            <option key={store} value={store}>
-              {store}
-            </option>
-          ))}
-        </select>
+          </select>
+          <select
+            className={styles.select}
+            value={selectedGenre}
+            onChange={(ev) => setSelectedGenre(ev.target.value)}
+          >
+            <option value="all" className={styles.op}>Ordenar por gênero:</option>
+            {uniqueGenres().map((genre) => (
+              <option key={genre} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+          <select
+            className={styles.select}
+            value={selectedStore}
+            onChange={(ev) => setSelectedStore(ev.target.value)}
+          >
+            <option value="all">Ordenar por loja:</option>
+            {uniqueStores().map((store) => (
+              <option key={store} value={store}>
+                {store}
+              </option>
+            ))}
+          </select>
         </div>
         <div className={styles.btnazul}>
-        <button className={styles.button} onClick={clearFilters}>
-          Redefinir Filtros
-        </button>
+          <button className={styles.button} onClick={clearFilters}>
+            Redefinir Filtros
+          </button>
         </div>
         <div className={styles.loaderdiv}>
-        {loading && (
-        <div className={styles.loader}>
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={['#1E90FF', '#0000FF', '#	000000', '#	2F4F4F', '#	B0E0E6']}
-          />
+          {loading && (
+            <div className={styles.loader}>
+              <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={['#1E90FF', '#0000FF', '#	000000', '#	2F4F4F', '#	B0E0E6']}
+              />
+            </div>
+          )}
         </div>
-      )}
-      </div>
-        <div className={styles.containerGames} style={{ display: divGames ? 'block' : 'none' }} value={divGames}>
+        <div className={styles.containerGames} >
           <GameList games={HolyGames} removeGame={removeGames} editGame={editGame} />
+        </div>
+        <div className={styles.paginate}>
+          {paginate()}
+        </div>
+        <div className={styles.paginatediv}>
+          <div className={styles.paginatebtn}>
+            <button className={styles.pagesbtn} onClick={previousPage}>
+              <IoIosArrowBack className={styles.icons} />
+            </button>
+            <button className={styles.pagesbtn} onClick={nextPage}>
+              <IoIosArrowForward className={styles.icons} />
+            </button>
+            <p>
+              Pagina {page} de {Math.ceil(newGameList.length / itemsPerPage)}
+            </p>
+          </div>
         </div>
       </div>
       <div className={styles.scrollbtn}>
-          <button className={styles.btnscroll} onClick={upScroll}>
-          <Image src='/setaredondacima.png' className={styles.setapcima} width={50} height={50}></Image>
-          </button>
-          <button className={styles.btnscrolls} onClick={downScroll}>
-          <Image src='/setaredondabaixo.png' className={styles.setapbaixo} width={50} height={50}></Image>
-          </button>
-        </div>   
-
+        <ScrollButton />
+      </div>
       <div className={styles.containerInputs} style={{ display: divInput ? 'block' : 'none' }} value={divInput}>
         <h1>Nome do Jogo</h1>
         <input
@@ -437,15 +504,18 @@ function Home() {
         {
           msg ? (store == '' ? <ErrorMsg msg={"Preencha a loja"} /> : null) : null
         }
+        <button className={styles.button111} onClick={changeDisplay}>
+          Voltar
+        </button>
 
         {editbtn ? (
           <div className={styles.editcontainer}>
-            <button className={styles.button} onClick={updateGame}>
+            <button className={styles.button11} onClick={updateGame}>
               Atualizar Jogo
             </button>
           </div>
         ) : (
-          <button className={styles.button} onClick={submitGame}>
+          <button className={styles.button11} onClick={submitGame}>
             Adicionar Jogo
           </button>
 

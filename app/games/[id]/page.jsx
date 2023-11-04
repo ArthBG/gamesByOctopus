@@ -16,8 +16,6 @@ const FormateDateBr = (date) => {
 }
 
 
-
-
 const gameDescription = ({ params }) => {
     const [games, setGames] = useState([]);
     useEffect(() => {
@@ -42,7 +40,6 @@ const gameDescription = ({ params }) => {
             <div className={styles.Header2}>
                 <Header2 />
             </div>
-
             <div className={styles.imageContainer}>
                 <img className={styles.gameThumb} src={games.background_image} alt={games.name} height={540} width={1200} />
 

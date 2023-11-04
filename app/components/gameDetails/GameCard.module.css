@@ -14,8 +14,6 @@
   transition: transform 0.2s ease-in-out;
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(11.5px);
-  -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 1rem;
@@ -74,12 +72,38 @@
     margin: 0.5rem 0;
     color: #888;
   }
-  .button {
+  .buttonexcluir {
     border: none;
     outline: none;
     padding: 0.5rem 0.2rem; 
     background-color: transparent;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+    margin-left: 0.3rem;
   }
+
+  .buttonexcluir:hover {
+    cursor: pointer;
+    background-color: rgb(228, 56, 56);
+    border-radius: 8px;
+  }
+
+  .buttonedit {
+    border: none;
+    outline: none;
+    padding: 0.5rem 0.2rem; 
+    background-color: transparent;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+  }
+
+.buttonedit:hover {
+    cursor: pointer;
+    background-color: rgb(81, 98, 255);
+    border-radius: 8px;
+  }
+
+
   .button:hover {
     cursor: pointer;
   }
