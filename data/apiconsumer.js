@@ -16,7 +16,9 @@ export const fetchApi = async (page) => {
 
 export const fetchApiDetails = async (id) => {
     try {
+
         const resposta = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+
         return resposta.data;
     }
 

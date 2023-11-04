@@ -2,8 +2,13 @@
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-    background-color: black;
+    background-color: white;
+    color: black;
 
+}
+
+.genrediv {
+    color: black;
 }
 
 .imageContainer {
@@ -22,7 +27,7 @@
 .h1 {
     position: absolute;
     top: 70%;
-    left: 15%;
+    left: 22%;
     transform: translate(-50%, -50%);
     color: black;
     font-size: 30px;
@@ -32,14 +37,11 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
     transition-duration: 0.4s;
 }
 
-.h1:hover {
-    background-color: #50de71;
-    color: rgb(30, 92, 216);
-    box-shadow: 0 12px 16px 0 rgb(30, 92, 216), 0 17px 50px 0 rgb(30, 92, 216);
-}
+
 
 .divrating {
     position: absolute;
@@ -78,7 +80,7 @@
 
 
 .h2 {
-    color: #fff;
+    color: black;
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -90,6 +92,7 @@
     width: 50%;
 }
 
+
 .description {
     color: rgb(155, 155, 155);
     font-size: 16px;
@@ -98,16 +101,11 @@
 }
 
 
-.h6 {
-    color: #fff;
-    margin-left: 30vh; 
-}
-
-
 .released {
     font-size: 14px;
     color: rgb(155, 155, 155);
-    margin-left: 76%;
+    margin-left: 50%;
+    margin-top: 2%;
 
 }
 
@@ -129,32 +127,233 @@
 
 
 .h3 {
-    color: #fff;
+    color: black;
     font-size: 20px;
-    margin-left: 76%;
+    margin-left: 44%;
 }
 
 
-.h6g {
+.link {
     color: #fff;
-    margin-left: 17vh;
+    margin-left: 76%;
+    font-size: 20px;
     margin-top: 4%;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+}
+
+.h6g {
+    color: black;
+    margin-left: 17vh;
+    margin-top: -5%;
+    font-size: 20px;
+}
+
+.developers {
+    position: absolute;
+    top: 96%;
+    background-color: #bceb21;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    left: 85%;
+
+}
+
+.faixa {
+    position: absolute;
+    top: 96%;
+    background-color: #eb8321;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    left: 68%;
+    color: #fff;
+}
+
+.h6h {
+    color: black;
+    position: absolute;
+    top: 90%;
+    display: block;
+    font-weight: bold;
+    left: 85%;
+    font-size: 20px;
+}
+
+.h5age {
+
+    color: black;
+    position: absolute;
+    top: 90%;
+    display: block;
+    font-weight: bold;
+    left: 65%;
     font-size: 20px;
 }
 
 .data {
-    position: absolute;
-    top: 90%;
+
     color: #fff;
     padding: 5px 10px;
     border-radius: 5px;
-    left: 40%;
-    width: 60%;
-    margin-top: 10px;
+    width: 70%;
+
 }
 .header2{
     display: none;
   }
+
+
+.devs {
+    color: #fff;
+}
+
+.Header2 {
+    display: none;
+}
+
+
+@media screen and (max-width: 650px) {
+    .header2 {
+        display: block;
+        width: 100%;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .descricao {
+        text-align: justify;
+        width: 100%;
+        margin: 0;
+    }
+
+    .container {
+        margin: 0 auto;
+        background-color: white;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .imageContainer {
+        margin-left: 5%;
+        position: relative;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .gameThumb {
+        border: solid 2px rgb(47, 47, 47);
+        width: 100%;
+        margin-left: -6%;
+        height: auto;
+    }
+
+    .h1 {
+        position: absolute;
+        top: 75%;
+        left: 18%;
+        transform: translate(-50%, -50%);
+        color: black;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .released {
+        color: black;
+        margin-left: 0;
+    }
+
+    .h3 {
+        margin-left: 0;
+        margin-top: 10%;
+        font-size: 14px;
+    }
+
+    .h6g {
+        font-size: 20px;
+        margin-left: 0;
+        color: black;
+        margin-top: 6%;
+        font-size: 14px;
+    }
+
+    .divrating {
+        margin-top: -10%;
+        height: auto;
+        left: 80%;
+        
+    }
+
+    .rating {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .genrediv {
+        width: 30%;
+        align-items: center;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .h5age,
+    .faixa,
+    .h6h,
+    .developers {
+        font-size: 14px;
+    }
+    
+    .h6h {
+        position: absolute;
+        top: 113%;
+        color: black;
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        left: 50%;
+    }
+
+
+    .h5age{
+        position: absolute;
+        top: 122%;
+        color: black;
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        left: 50%;
+    }
+
+    .devs {
+        position: absolute;
+        top: 115%;
+        color: black;
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        left: 50%;
+        
+    }
+    .faixa{
+        position: absolute;
+        top: 125%;
+        color: black;
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        left: 50%;
+    }
+
+    .platforms{
+        width: auto;
+        height: auto;
+        margin-left: auto;
 
 @media (max-width: 768px) {
     .header2{
@@ -240,6 +439,7 @@
     .genrediv{
         width: 90%;
         margin-left: 0;
+
     }
 }
 
