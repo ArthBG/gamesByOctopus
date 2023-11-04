@@ -40,10 +40,10 @@ function GameCard({ game, removeGame, editGame }) {
         </p>
       </div>
       <div className={styles.contaierbuttons}>
-        <button className={styles.button} value={game.name}>
+        <button className={styles.buttonexcluir} value={game.name}>
           <BsTrashFill onClick={() => removeGame(game.id)} />
         </button>
-        <button className={styles.button} value={game.name}>
+        <button className={styles.buttonedit} value={game.name}>
           <BiSolidEditAlt onClick={() => editGame(game.id)} />
         </button>
       </div>

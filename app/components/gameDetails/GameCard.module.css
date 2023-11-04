@@ -72,12 +72,38 @@
     margin: 0.5rem 0;
     color: #888;
   }
-  .button {
+  .buttonexcluir {
     border: none;
     outline: none;
     padding: 0.5rem 0.2rem; 
     background-color: transparent;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+    margin-left: 0.3rem;
   }
+
+  .buttonexcluir:hover {
+    cursor: pointer;
+    background-color: rgb(228, 56, 56);
+    border-radius: 8px;
+  }
+
+  .buttonedit {
+    border: none;
+    outline: none;
+    padding: 0.5rem 0.2rem; 
+    background-color: transparent;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+  }
+
+.buttonedit:hover {
+    cursor: pointer;
+    background-color: rgb(81, 98, 255);
+    border-radius: 8px;
+  }
+
+
   .button:hover {
     cursor: pointer;
   }
