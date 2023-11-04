@@ -2,7 +2,9 @@
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-    background-color: white;
+    background-image: url(../../../public/bg-white.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
     color: black;
 
 }
@@ -354,6 +356,8 @@
         width: auto;
         height: auto;
         margin-left: auto;
+    }
+}
 
 @media (max-width: 768px) {
     .header2{
