@@ -1,7 +1,7 @@
 import React from 'react'
 import Styles from './sobrenos.module.css'
 import Image from 'next/image';
-import Header  from '../components/header/header';
+import Header from '../components/header/header';
 import Header2 from '../components/header2/page';
 
 
@@ -9,12 +9,12 @@ import Header2 from '../components/header2/page';
 function SobreNos() {
     return (
         <main className={Styles.main1}>
- <div className={Styles.header}>
-   <Header />
-    </div>
-   <div className={Styles.header2}>
-      <Header2/>
-      </div>
+            <div className={Styles.header}>
+                <Header />
+            </div>
+            <div className={Styles.header2}>
+                <Header2 />
+            </div>
 
             <h1 className={Styles.titulo}>Sobre Nós</h1>
 
@@ -49,7 +49,7 @@ function SobreNos() {
                         <a href="https://www.instagram.com/bela.osouza" target='_blank'><Image className={Styles.img} src="/pictureprofile.octopus04.jfif" width={180} height={180} /></a>
                         <p className={Styles.text1}><strong>Nome: </strong> Isabela Souza</p>
                         <p className={Styles.text1}><strong>Idade:</strong>16 anos</p>
-                        <p className={Styles.text1}><strong>Descrição:</strong>Isabela Souza, uma integrante cativante da equipe Octopus, traz consigo uma paixão especial pelo mundo da culinária e pelas maratonas de séries. Sua habilidade na cozinha é tão impressionante quanto seu entusiasmo em explorar tramas e personagens através das telas. Residindo em Valinhos, São Paulo, com seus 16 anos, Isabela é uma jovem de múltiplos talentos que ilumina nossa equipe com sua criatividade e paixão. Seu amor pela gastronomia e narrativas promete criar um sabor especial em nossos projetos futuros, tornando-os tão envolventes quanto seus pratos culinários e séries favoritas.</p>
+                        <p className={Styles.text1}><strong>Descrição:</strong>Isabela Souza, uma integrante da equipe Octopus, é uma jovem de 16 anos de Valinhos, São Paulo, que tem uma paixão especial pela culinária e maratonas de séries. Ela é conhecida por sua habilidade na cozinha e seu entusiasmo por explorar tramas e personagens através das telas. Sua criatividade e paixão prometem adicionar um toque especial aos projetos futuros da equipe, tornando-os tão envolventes quanto seus pratos culinários e séries favoritas.</p>
                     </div>
                     <div className={Styles.card}>
                         <a href="https://www.instagram.com/joaoo.sntx" target='_blank'><Image className={Styles.img} src="/pictureprofile.octopusme.jfif" width={180} height={180} /></a>
