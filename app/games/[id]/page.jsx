@@ -76,7 +76,7 @@ const gameDescription = ({ params }) => {
 
             <div className={styles.publishers}>
                 <h5 className={styles.h3}>Publicado por:</h5>
-                <p className={styles.rating}>{games.publishers ? games.publishers[0].name : "Não disponível"}</p>
+                <p className={styles.publi}>{games.publishers ? games.publishers[0].name : "Não disponível"}</p>
             </div>
             
 
