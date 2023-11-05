@@ -26,6 +26,11 @@
   width: 1.5rem;
   height: 1.3rem;
 }
+.icon:hover{
+  transform : scale(1.1);
+  transform: ease-in-out;
+  background-color: transparent;
+}
 .searchInput{
   font-size: medium;
 }
