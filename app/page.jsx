@@ -361,7 +361,7 @@ function Home() {
             value={selectedPlatform}
             onChange={(ev) => setSelectedPlatform(ev.target.value)}
           >
-            <option value="all" className={styles.op}>Filtre pela plataforma:</option>
+            <option value="all" className={styles.op}>Ordenar pela plataforma:</option>
             {
               uniquePlatforms().map((platform) => (
                 <option key={platform} value={platform}>
@@ -431,7 +431,7 @@ function Home() {
               <IoIosArrowForward className={styles.icons} />
             </button>
             <p>
-              Pagina {page} de {Math.ceil(newGameList.length / itemsPerPage)}
+              Página {page} de {Math.ceil(newGameList.length / itemsPerPage)}
             </p>
           </div>
         </div>
