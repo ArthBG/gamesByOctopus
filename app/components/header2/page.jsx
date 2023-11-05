@@ -23,7 +23,7 @@ const meuLink = "https://linktr.ee/joao.senai"
                 </Link>
                 </div>
                 <div className={styles.icons}>
-                <Link className={styles.a} href="/sobrenos">
+                <Link className={styles.a} href="/sobrenos" target='parent'>
                 <BiSolidGroup className={styles.icon}/>
                 </Link>
                 </div>
