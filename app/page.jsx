@@ -301,9 +301,10 @@ function Home() {
 
 
   const updateGame = () => {
-    const platformSplited = typeof platform === 'string' ? platform.split(',') : [platform];
-    const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre];
-    const storeSplited = typeof store === 'string' ? store.split(',') : [store];
+    // flat() transforma um array de arrays em um array só
+    const platformSplited = typeof platform === 'string' ? platform.split(',') : [platform].flat();
+    const genreSplited = typeof genre === 'string' ? genre.split(',') : [genre].flat();
+    const storeSplited = typeof store === 'string' ? store.split(',') : [store].flat();
     gamelist.updateNewGame(flag, name, platformSplited, genreSplited, date, image, storeSplited);
     console.log('entrou no update');
     console.log(gamelist.getGames());
