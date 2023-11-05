@@ -40,9 +40,11 @@ const gameDescription = ({ params }) => {
             <div className={styles.Header2}>
                 <Header2 />
             </div>
+            <div className={styles.back}>
+            <div className={styles.back2}>
             <div className={styles.imageContainer}>
-                <img className={styles.gameThumb} src={games.background_image} alt={games.name} height={540} width={1200} />
-
+                <img className={styles.gameThumb} src={games.background_image} alt={games.name} height={540} width={1250} />
+            </div>
                 {games.website ? (
                     <Link className={styles.h1} href={games.website} target='blank'>{games.name}</Link>
                 ) : (
@@ -64,22 +66,29 @@ const gameDescription = ({ params }) => {
                         ))
                     ) : null}
                 </div>
-
+            </div>
+            <div className={styles.flexdiv}>
+            <div className={styles.leftsidediv}>
+            <div className={styles.age}>
+                <h5 className={styles.h5age}>Classificação Etária:</h5>
+                <p className={styles.faixa}> {games.esrb_rating ? games.esrb_rating.name : "Não disponível"}</p>
             </div>
 
+            <div className={styles.publishers}>
+                <h5 className={styles.h3}>Publicado por:</h5>
+                <p className={styles.rating}>{games.publishers ? games.publishers[0].name : "Não disponível"}</p>
+            </div>
+            
+
             <div className={styles.descricao}>
-                <p className={styles.h2}>{games.name} Game</p>
+                <p className={styles.h2}>{games.name}</p>
                 <p className={styles.description}>{games.description_raw}</p>
             </div>
 
-            <div className={styles.data}>
-                <h3 className={styles.h3}>Data de lançamento:</h3>
-                <h6 className={styles.released}> {FormateDateBr(games.released)}</h6>
-
             </div>
-
-
+            <div className={styles.sidediv}>
             <h5 className={styles.h6g}>Gêneros do jogo:</h5>
+            <div className={styles.genresContainer}>
             {games.genres ? (
                 games.genres.map((genre) => (
 
@@ -91,7 +100,30 @@ const gameDescription = ({ params }) => {
 
                 ))
             ) : null}
-            <h5 className={styles.h6h}>Desenvolvedor:</h5>
+            </div>
+
+            <div className={styles.data}>
+                <h3 className={styles.h3}>Data de lançamento:</h3>
+                <h6 className={styles.released}> {FormateDateBr(games.released)}</h6>
+
+            </div>
+            <h5 className={styles.h3}>Lojas disponíveis:</h5>
+            <div className={styles.lojas}>
+            {games.stores ? (
+                games.stores.map((store) => (
+
+                    <div className={styles.storediv}>
+                        <p className={styles.stores}>{store.store.name}</p>
+                    </div>
+
+                ))
+            ) : null}
+            </div>
+
+
+          
+            <h5 className={styles.h6h}>Desenvolvedores:</h5>
+            <div className={styles.devs}>
             {games.developers ? (
                 games.developers.map((developers) => (
 
@@ -102,16 +134,13 @@ const gameDescription = ({ params }) => {
 
                 ))
             ) : null}
-
-
-
-            <div className={styles.age}>
-                <h5 className={styles.h5age}>Classificação Etária:</h5>
-                <p className={styles.faixa}> {games.esrb_rating ? games.esrb_rating.name : "Não disponível"}</p>
             </div>
+            </div>
+            </div>
+            </div>
+        </div>
 
-
-        </div >
+         
     );
 };
 
