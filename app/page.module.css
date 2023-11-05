@@ -12,12 +12,22 @@
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
-
+.searchbtn{
+  background-color: transparent;
+  border: none;
+}
 .scrollbtn {
   position: fixed;
   bottom: 2rem;
   right: 0;
   margin-right: 0.5rem;
+}
+.icon{
+  width: 1.5rem;
+  height: 1.3rem;
+}
+.searchInput{
+  font-size: medium;
 }
 .icons{
   cursor: pointer;
@@ -54,7 +64,8 @@
   width: fit-content;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: transparent;
+  border: #e9e9e9 1px solid;
   
 }
 

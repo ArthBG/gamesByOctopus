@@ -351,7 +351,9 @@ function Home() {
             value={search}
             onChange={(ev) => setSearch(ev.target.value)}
           />
-          <FiSearch onClick={handleSearch} />
+          <button className={styles.searchbtn}>
+          <FiSearch className={styles.icon} onClick={handleSearch} />
+          </button>
         </div>
         <div className={styles.allselect}>
           <select
