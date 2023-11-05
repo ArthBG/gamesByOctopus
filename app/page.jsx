@@ -15,7 +15,11 @@ import Header2 from './components/header2/page';
 import ScrollButton from './components/scrollbutton/ScrollButton';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
-// no terminal npm install react-loader-spinner --save , npm install react-icons --save, npm install next/image --save, npm install
+import '@coreui/coreui/dist/css/coreui.min.css';
+import { CFooter } from '@coreui/react'
+import { CLink } from '@coreui/react'
+
+// no terminal npm install @coreui/react@next, npm install bootstrap,  npm install react-loader-spinner --save , npm install react-icons --save, npm install next/image --save, npm install
 
 const itemsPerPage = 10;
 const gamelist = new NewGameList();
@@ -526,8 +530,17 @@ function Home() {
         )}
 
 
-
       </div>
+  <CFooter>
+  <div>
+    <CLink href="https://linktr.ee/joao.senai">Octopus</CLink>
+    <span> 2023 Todos os direitos reservados</span>
+  </div>
+  <div>
+    <span>Powered by </span>
+    <CLink href="https://github.com/Arthursenai/gamesByOctopus">Octopus</CLink>
+  </div>
+  </CFooter>
     </main>
   );
 }

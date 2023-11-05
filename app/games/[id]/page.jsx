@@ -6,6 +6,9 @@ import Header from '@/app/components/header/header';
 import Link from 'next/link';
 import Header2 from '@/app/components/header2/page';
 import { ColorRing } from 'react-loader-spinner';
+import '@coreui/coreui/dist/css/coreui.min.css';
+import { CFooter } from '@coreui/react'
+import { CLink } from '@coreui/react'
 
 const FormateDateBr = (date) => {
     const dateFormated = new Date(date);
@@ -133,6 +136,16 @@ const gameDescription = ({ params }) => {
                     </div>
                 )}
             </div>
+            <CFooter>
+  <div>
+    <CLink href="https://linktr.ee/joao.senai">Octopus</CLink>
+    <span> 2023 Todos os direitos reservados</span>
+  </div>
+  <div>
+    <span>Powered by </span>
+    <CLink href="https://github.com/Arthursenai/gamesByOctopus">Octopus</CLink>
+  </div>
+  </CFooter>
         </div>
     );
 };

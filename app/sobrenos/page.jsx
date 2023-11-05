@@ -1,9 +1,12 @@
+"use client";
 import React from 'react'
 import Styles from './sobrenos.module.css'
 import Image from 'next/image';
 import Header from '../components/header/header';
 import Header2 from '../components/header2/page';
-
+import '@coreui/coreui/dist/css/coreui.min.css';
+import { CFooter } from '@coreui/react'
+import { CLink } from '@coreui/react'
 
 
 function SobreNos() {
@@ -61,6 +64,16 @@ function SobreNos() {
                 </div>
 
             </div>
+            <CFooter>
+  <div>
+    <CLink href="https://linktr.ee/joao.senai">Octopus</CLink>
+    <span> 2023 Todos os direitos reservados</span>
+  </div>
+  <div>
+    <span>Powered by </span>
+    <CLink href="https://github.com/Arthursenai/gamesByOctopus">Octopus</CLink>
+  </div>
+  </CFooter>
         </main>
     )
 }
