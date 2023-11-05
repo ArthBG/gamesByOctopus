@@ -39,7 +39,7 @@ function SobreNos() {
                         <a href="https://www.instagram.com/mathh_costa" target='_blank'><Image className={Styles.img} src="/pictureprofile.octopus03.jfif" width={180} height={180} /></a>
                         <p className={Styles.text1}><strong>Nome: </strong> Matheus Zambom</p>
                         <p className={Styles.text1}><strong>Idade:</strong> 17 anos</p>
-                        <p className={Styles.text1}><strong>Descrição:</strong> Matheus Zambon, um membro dedicado da equipe Octopus, traz em seu perfil uma paixão evidente pela academia e futebol. Sua determinação e vigor refletem não apenas em suas atividades esportivas, mas também na sua abordagem à equipe. Com 16 anos de idade e residindo em Valinhos, São Paulo, Matheus é um jovem talentoso que demonstra um comprometimento incansável em todos os seus empreendimentos. Seu entusiasmo contagioso é um ativo valioso, prometendo um futuro repleto de conquistas tanto no campo como no mundo digital.</p>
+                        <p className={Styles.text1}><strong>Descrição:</strong> Matheus Zambon, membro dedicado da equipe Octopus, combina sua paixão pela academia e futebol com determinação e vigor notáveis. Aos 16 anos e residente em Valinhos, São Paulo, ele demonstra um comprometimento incansável em todos os seus empreendimentos. Seu entusiasmo contagioso o torna um ativo valioso, prevendo um futuro promissor tanto no esporte como no mundo digital.</p>
                     </div>
 
                 </div>
@@ -55,7 +55,7 @@ function SobreNos() {
                         <a href="https://www.instagram.com/joaoo.sntx" target='_blank'><Image className={Styles.img} src="/pictureprofile.octopusme.jfif" width={180} height={180} /></a>
                         <p className={Styles.text1}><strong>Nome: </strong>João Oliveira</p>
                         <p className={Styles.text1}><strong>Idade:</strong>16 anos</p>
-                        <p className={Styles.text1}><strong>Descrição:</strong>João Victor, membro entusiasta da equipe Octopus, traz consigo uma paixão inegável por futebol e música. Seu amor pelo esporte é tão vibrante quanto suas notas musicais, e ele equilibra com maestria o ritmo das partidas com a harmonia da melodia. Com seus 16 anos e residindo em Valinhos, São Paulo, João é uma promessa brilhante, combinando seu comprometimento nos campos e sua paixão pelos acordes. Sua presença na equipe Octopus adiciona um toque especial de energia e criatividade, prometendo um futuro repleto de conquistas notáveis em ambas as áreas.</p>
+                        <p className={Styles.text1}><strong>Descrição:</strong>João Victor, membro entusiasta da equipe Octopus, é apaixonado por futebol e música. Com 16 anos e morando em Valinhos, São Paulo, ele equilibra com maestria sua paixão pelo esporte e pela música. Sua presença na equipe é uma fonte de energia e criatividade, prometendo um futuro brilhante e cheio de conquistas tanto nos campos como no mundo da música.</p>
                     </div>
 
                 </div>
