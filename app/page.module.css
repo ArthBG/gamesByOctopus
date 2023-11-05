@@ -33,6 +33,7 @@
 }
 .searchInput{
   font-size: medium;
+  background-color: transparent;
 }
 .icons{
   cursor: pointer;

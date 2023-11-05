@@ -37,7 +37,7 @@ function Header({ changeDisplay }) {
                                 </Link>
                             </li>
                             <li>
-                                <Link className={styles.a} href="/sobrenos">
+                                <Link className={styles.a} href="../../sobrenos">
                                     <span className={styles.icon}>
                                         <BiSolidGroup className={styles.fa} />
                                     </span>
