@@ -534,7 +534,8 @@ function Home() {
   <CFooter>
   <div>
     <CLink href="https://linktr.ee/joao.senai">Octopus</CLink>
-    <span> 2023 Todos os direitos reservados</span>
+    <span> 2023 </span>
+    <span>Todos os direitos reservados</span>
   </div>
   <div>
     <span>Powered by </span>
