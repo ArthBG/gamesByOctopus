@@ -58,7 +58,8 @@
 
 .tituloprincipal {
   color: #0070f3;
-  font-size: 4rem;
+  font-size: 3rem;
+  font-weight: bold;
   text-align: center;
   margin: 2rem;
 }
