@@ -19,7 +19,7 @@ function Header({ changeDisplay }) {
     return (
         <div>
             <header className={styles.mainContainer}>
-                <div className={styles.cont1}>
+                <div className={styles.logodiv}>
                     <Link href="/">
                         <Image className={styles.logoOctopus} src={'/LOGO-octopusBlack.png'} alt="Logo da empresa" width={50} height={50}></Image>
                     </Link>
