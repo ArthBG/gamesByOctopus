@@ -18,8 +18,8 @@ const meuLink = "https://linktr.ee/joao.senai"
         <div>
             <main className={styles.headernovo}>
                 <div className={styles.icons}>
-                <Link className={styles.a} href="/">
-                    <BiSolidHome className={styles.icon}  target='parent'/>
+                <Link className={styles.a} href="/" target='parent'>
+                    <BiSolidHome className={styles.icon} />
                 </Link>
                 </div>
                 <div className={styles.icons}>
