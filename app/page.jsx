@@ -117,7 +117,7 @@ function Home() {
 
         let allGameData = [];
         let currentPage = 1;
-        while (allGameData.length < 900) {
+        while (allGameData.length < 100) {
           const response = await fetchAsyncGames(currentPage);
           allGameData = [...allGameData, ...response.results];
           currentPage++;
